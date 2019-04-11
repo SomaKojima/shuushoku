@@ -36,14 +36,14 @@ public:
 /// <summary>
 /// 登録されるオブジェクトクラス（リストの要素となるクラス）
 /// </summary>
-template<class T2> class BidirectionalList
+template<class T> class BidirectionalList
 {
 public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
 	/// <param name="obj"></param>
-	BidirectionalList(T2* obj) : m_pPre(nullptr), m_pNext(nullptr), m_pRegisterTo(nullptr), m_pObj(obj) { }
+	BidirectionalList(T* obj) : m_pPre(nullptr), m_pNext(nullptr), m_pRegisterTo(nullptr), m_pObj(obj) { }
 
 	/// <summary>
 	/// デストラクタ
@@ -60,15 +60,15 @@ public:
 		RegisterTo() : m_pTop(nullptr) {}
 		virtual ~RegisterTo() {}
 
-		bool Add(BidirectionalList<T2>* obj);
+		bool Add(BidirectionalList<T>* obj);
 
 		void SetTop(BidirectionalList<T>* top) { m_pTop = top; }
-		BidirectionalList<T2>* GetTop() { return m_pTop; }
+		BidirectionalList<T>* GetTop() { return m_pTop; }
 
 		void Clear();
 
 	protected:
-		BidirectionalList<T2>* m_pTop;
+		BidirectionalList<T>* m_pTop;
 	};
 
 public:
@@ -76,10 +76,10 @@ public:
 	bool Remove();
 
 	// getter
-	BidirectionalList<T2>* GetPre() { return m_pPre; }
-	BidirectionalList<T2>* GetNext() { return m_pNext; }
+	BidirectionalList<T>* GetPre() { return m_pPre; }
+	BidirectionalList<T>* GetNext() { return m_pNext; }
 	RegisterTo* GetRegisterTo() { return m_pRegisterTo; }
-	T2* GetObj() { return m_pObj; }
+	T* GetObj() { return m_pObj; }
 
 private:
 	// setter
@@ -88,17 +88,17 @@ private:
 	void SetRegisterTo(RegisterTo* registerTo) { m_pRegisterTo = registerTo; }
 
 private:
-	BidirectionalList<T2>* m_pPre;
-	BidirectionalList<T2>* m_pNext;
+	BidirectionalList<T>* m_pPre;
+	BidirectionalList<T>* m_pNext;
 
 	RegisterTo* m_pRegisterTo;
 
 	// 登録されているオブジェクトの削除
-	T2* m_pObj;
+	T* m_pObj;
 };
 
-template<class T2>
-inline bool BidirectionalList<T2>::Remove()
+template<class T>
+inline bool BidirectionalList<T>::Remove()
 {
 	// 登録されていない場合
 	if (!m_pRegisterTo)
@@ -129,8 +129,8 @@ inline bool BidirectionalList<T2>::Remove()
 	return true;
 }
 
-template<class T2>
-inline bool BidirectionalList<T2>::RegisterTo::Add(BidirectionalList<T2>* obj)
+template<class T>
+inline bool BidirectionalList<T>::RegisterTo::Add(BidirectionalList<T>* obj)
 {
 	// 二重登録防止
 	if (obj->GetRegisterTo() == this)
@@ -159,8 +159,8 @@ inline bool BidirectionalList<T2>::RegisterTo::Add(BidirectionalList<T2>* obj)
 	return true;
 }
 
-template<class T2>
-inline void BidirectionalList<T2>::RegisterTo::Clear()
+template<class T>
+inline void BidirectionalList<T>::RegisterTo::Clear()
 {
 	while (m_pTop)
 	{

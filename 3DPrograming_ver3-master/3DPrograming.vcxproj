@@ -163,6 +163,7 @@
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game\Object\GameObject.h" />
+    <ClInclude Include="Game\Object\GameObjectList.h" />
     <ClInclude Include="Game\Object\Transform.h" />
     <ClInclude Include="Game\Scene\SceneManager.h" />
     <ClInclude Include="Game\SubGame.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game\Object\GameObject.cpp" />
+    <ClCompile Include="Game\Object\GameObjectList.cpp" />
     <ClCompile Include="Game\Object\Transform.cpp" />
     <ClCompile Include="Game\Scene\SceneManager.cpp" />
     <ClCompile Include="Game\SubGame.cpp" />

@@ -1,11 +1,12 @@
 #pragma once
 
 #include "Transform.h"
+#include "../Utility/BidirectionalList.h"
 
 /// <summary>
 /// ゲームオブジェクトのクラス
 /// </summary>
-class GameObject
+class GameObject : public BidirectionalList<GameObject>
 {
 public:
 	// コンストラクタ

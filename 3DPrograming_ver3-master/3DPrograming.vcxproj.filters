@@ -56,6 +56,9 @@
     <ClInclude Include="Game\Object\Transform.h">
       <Filter>Game\Object</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Object\GameObjectList.h">
+      <Filter>Game\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -79,6 +82,9 @@
       <Filter>Game\Object</Filter>
     </ClCompile>
     <ClCompile Include="Game\Object\Transform.cpp">
+      <Filter>Game\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Object\GameObjectList.cpp">
       <Filter>Game\Object</Filter>
     </ClCompile>
   </ItemGroup>
