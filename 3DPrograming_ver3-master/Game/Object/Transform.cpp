@@ -78,7 +78,7 @@ DirectX::SimpleMath::Vector3 Transform::WorldAccel()
 /// <returns></returns>
 DirectX::SimpleMath::Quaternion Transform::WorldDir()
 {
-	if (!m_parent) m_localDir;
+	if (!m_parent) return m_localDir;
 	return m_parent->WorldDir() * m_localDir;
 }
 

@@ -53,6 +53,7 @@ void GameObject::Finalize()
 	for (auto ite = m_componentList.begin(); ite != m_componentList.end(); ite++)
 	{
 		(*ite)->Finalize();
+		delete (*ite);
 	}
 	m_componentList.clear();
 }

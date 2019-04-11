@@ -88,6 +88,7 @@ void SceneManager::ChangeScene()
 
 	// シーンの更新
 	m_currentScene = scene;
+	m_currentSceneID = m_changeSceneID;
 
 	// シーンの初期化
 	if (!m_currentScene)return;

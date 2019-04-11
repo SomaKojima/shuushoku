@@ -7,6 +7,7 @@
 
 #include "Game/SubGame.h"
 #include "Game/Data/Model/ModelData.h"
+#include "Game/Camera/CameraManager.h"
 
 #if _DEBUG
 #define _CRTDBG_MAP_ALLOC
@@ -102,10 +103,12 @@ void Game::Render()
 	auto context = m_deviceResources->GetD3DDeviceContext();
 
 	// ビュー行列の作成
-	m_view = m_debugCamera->GetCameraMatrix();
+	CameraManager& cameraManager = CameraManager::GetInstace();
+	//m_view = m_debugCamera->GetCameraMatrix();
+	m_view = cameraManager.GetView();
 
 	// グリッドの床の描画
-	m_gridFloor->Render(context, m_view, m_projection);
+	//m_gridFloor->Render(context, m_view, m_projection);
 
 	// ここから描画処理を記述する
 

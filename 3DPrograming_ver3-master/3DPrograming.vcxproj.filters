@@ -38,6 +38,12 @@
     <Filter Include="FBX">
       <UniqueIdentifier>{12cfc329-7e8f-429d-942a-3b7f1354bf32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Camera">
+      <UniqueIdentifier>{14f56ba9-904d-43f4-9086-6c86b7ed84f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Collision">
+      <UniqueIdentifier>{d3fec7db-8371-41cd-9172-214032b56a5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -89,6 +95,27 @@
     <ClInclude Include="Game\Data\Model\ModelData.h">
       <Filter>Game\Data\Model</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Camera\PlayCamera.h">
+      <Filter>Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\CameraManager.h">
+      <Filter>Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\BaseCamera.h">
+      <Filter>Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\Camera.h">
+      <Filter>Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collision\CCell.h">
+      <Filter>Game\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collision\Collision.h">
+      <Filter>Game\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Data\Data.h">
+      <Filter>Game\Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -128,6 +155,24 @@
     </ClCompile>
     <ClCompile Include="Game\Data\Model\ModelData.cpp">
       <Filter>Game\Data\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\PlayCamera.cpp">
+      <Filter>Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\CameraManager.cpp">
+      <Filter>Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\BaseCamera.cpp">
+      <Filter>Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\Camera.cpp">
+      <Filter>Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collision\CCell.cpp">
+      <Filter>Game\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collision\Collision.cpp">
+      <Filter>Game\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
