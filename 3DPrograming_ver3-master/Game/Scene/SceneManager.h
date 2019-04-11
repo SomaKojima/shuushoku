@@ -64,6 +64,9 @@ public:
 	// シーンを変える処理
 	void ChangeScene();
 
+	// 現在のシーンのゲームオブジェクトリストを取得
+	GameObjectList& GetGameObjectList() { return m_currentScene->GetGameObjectList(); }
+
 private:
 	// 現在のシーンID
 	SceneID m_currentSceneID;
