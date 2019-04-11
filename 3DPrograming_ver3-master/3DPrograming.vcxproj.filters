@@ -86,6 +86,9 @@
     <ClInclude Include="Game\Component\Render\RenderThreeDimension.h">
       <Filter>Game\Component\Render</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Data\Model\ModelData.h">
+      <Filter>Game\Data\Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -123,6 +126,9 @@
     <ClCompile Include="Game\Component\Render\RenderThreeDimension.cpp">
       <Filter>Game\Component\Render</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Data\Model\ModelData.cpp">
+      <Filter>Game\Data\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -136,5 +142,10 @@
     <Manifest Include="settings.manifest">
       <Filter>Assets</Filter>
     </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FBX\car_body.FBX">
+      <Filter>FBX</Filter>
+    </None>
   </ItemGroup>
 </Project>

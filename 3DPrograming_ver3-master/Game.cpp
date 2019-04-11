@@ -6,6 +6,7 @@
 #include "Game.h"
 
 #include "Game/SubGame.h"
+#include "Game/Data/Model/ModelData.h"
 
 #if _DEBUG
 #define _CRTDBG_MAP_ALLOC
@@ -206,9 +207,13 @@ void Game::CreateDeviceDependentResources()
 	// グリッドの床の作成
 	m_gridFloor = std::make_unique<GridFloor>(device, context, m_states.get(), 10.0f, 10);
 
+	// モデルデータのデバイスを設定する
+	ModelData::SetDevice(device);
+
 	// サブゲームの作成
 	SubGame& subGame = SubGame::GetInstace();
 	subGame.Initialize(this);
+
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.

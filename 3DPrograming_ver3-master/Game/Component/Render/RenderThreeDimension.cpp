@@ -19,6 +19,9 @@ RenderThreeDimention::~RenderThreeDimention()
 
 void RenderThreeDimention::Render()
 {
+	// モデルがない場合
+	if (!m_model) return;
+	// スカイドームを描画する際の処理
 	if (m_type == Type::Sky)
 	{
 		m_model->UpdateEffects([&](IEffect* effect) {
@@ -38,8 +41,9 @@ void RenderThreeDimention::Render()
 			}
 		});
 	}
-
+	// ゲームを取得
 	Game* game = SubGame::GetInstace().m_game;
+	// 描画
 	if (game)
 	{
 		m_model->Draw(game->GetContext(), *game->GetStates(), m_gameObject->GetTransform().WorldMatrix(), game->GetView(), game->GetProjection());

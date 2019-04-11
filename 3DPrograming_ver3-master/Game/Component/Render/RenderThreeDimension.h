@@ -2,6 +2,9 @@
 
 #include "../Component.h"
 
+/// <summary>
+/// 3Dモデル描画のコンポーネント
+/// </summary>
 class RenderThreeDimention : public Component
 {
 public:

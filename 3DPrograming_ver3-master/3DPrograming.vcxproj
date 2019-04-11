@@ -52,6 +52,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\MeshContentTask.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game\Component\Component.h" />
     <ClInclude Include="Game\Component\Render\RenderThreeDimension.h" />
+    <ClInclude Include="Game\Data\Model\ModelData.h" />
     <ClInclude Include="Game\Object\Car\Car.h" />
     <ClInclude Include="Game\Object\GameObject.h" />
     <ClInclude Include="Game\Object\GameObjectList.h" />
@@ -183,6 +185,7 @@
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game\Component\Render\RenderThreeDimension.cpp" />
+    <ClCompile Include="Game\Data\Model\ModelData.cpp" />
     <ClCompile Include="Game\Object\Car\Car.cpp" />
     <ClCompile Include="Game\Object\GameObject.cpp" />
     <ClCompile Include="Game\Object\GameObjectList.cpp" />
@@ -209,7 +212,15 @@
   <ItemGroup>
     <Manifest Include="settings.manifest" />
   </ItemGroup>
+  <ItemGroup>
+    <MeshContentTask Include="FBX\car_body.FBX">
+      <FileType>Document</FileType>
+      <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Resources\Models\%(Filename).cmo</ContentOutput>
+      <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources\Models\%(Filename).cmo</ContentOutput>
+    </MeshContentTask>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\MeshContentTask.targets" />
   </ImportGroup>
 </Project>
