@@ -4,8 +4,14 @@
 #include "../Utility/Singleton.h"
 #include "../Object/GameObjectList.h"
 
+/// <summary>
+/// 前方宣言
+/// </summary>
 class Game;
 
+/// <summary>
+/// シーンクラス
+/// </summary>
 class Scene
 {
 public:
@@ -20,9 +26,15 @@ private:
 	GameObjectList m_gameObjectList;
 };
 
+/// <summary>
+/// シーン管理クラス
+/// </summary>
 class SceneManager : public Singleton<SceneManager>
 {
 public:
+	/// <summary>
+	/// シーン判別ID
+	/// </summary>
 	enum SceneID
 	{
 		Title,
@@ -32,7 +44,9 @@ public:
 	};
 
 public:
+	// コンストラクタ
 	SceneManager();
+	//デストラクタ
 	~SceneManager();
 
 	// 初期化処理

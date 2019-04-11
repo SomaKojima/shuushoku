@@ -1,8 +1,11 @@
 #include "../../pch.h"
 #include "SceneManager.h"
-//#include "ScenePlay.h"
+#include "PlayScene.h"
 //#include "SceneTitle.h"
 
+/// <summary>
+/// コンストラクタ
+/// </summary>
 SceneManager::SceneManager()
 	:
 	m_currentScene(nullptr),
@@ -11,16 +14,25 @@ SceneManager::SceneManager()
 {
 }
 
+/// <summary>
+/// デストラクタ
+/// </summary>
 SceneManager::~SceneManager()
 {
 }
 
-// 初期化処理
+/// <summary>
+/// 初期化処理
+/// </summary>
 void SceneManager::Initialize()
 {
 	ChangeScene();
 }
 
+/// <summary>
+/// 更新処理
+/// </summary>
+/// <param name="elapsedTime"></param>
 void SceneManager::Update(float elapsedTime)
 {
 	if (!m_currentScene)return;
@@ -32,7 +44,9 @@ void SceneManager::Update(float elapsedTime)
 	}
 }
 
-// 描画処理
+/// <summary>
+/// 描画処理
+/// </summary>
 void SceneManager::Render()
 {
 	if (!m_currentScene)return;
@@ -70,6 +84,7 @@ void SceneManager::ChangeScene()
 	case SceneManager::Title:
 		break;
 	case SceneManager::Play:
+		scene = new PlayScene();
 		break;
 	default:
 		break;
