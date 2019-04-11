@@ -50,7 +50,7 @@ void GameObjectList::Render()
 	BidirectionalList<GameObject>* obj = m_pTop;
 	while (obj)
 	{
-		obj->GetObj()->Renderer();
+		obj->GetObj()->Render();
 		obj = obj->GetNext();
 	}
 }

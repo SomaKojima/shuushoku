@@ -23,6 +23,21 @@
     <Filter Include="Game\Object\Car">
       <UniqueIdentifier>{6387a8d0-9663-402b-a823-ee5771ed2aab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component">
+      <UniqueIdentifier>{2706517a-74fc-4698-a0f5-2601052b0cc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Render">
+      <UniqueIdentifier>{81164360-572a-46fc-94ba-e17e1e1d918f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Data">
+      <UniqueIdentifier>{ede71eb7-c8d3-4ac0-90ba-d30a9f24b6d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Data\Model">
+      <UniqueIdentifier>{fdf52a5c-7075-4954-b53a-64aec8c1b78e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FBX">
+      <UniqueIdentifier>{12cfc329-7e8f-429d-942a-3b7f1354bf32}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -62,6 +77,15 @@
     <ClInclude Include="Game\Scene\PlayScene.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Component\Component.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Object\Car\Car.h">
+      <Filter>Game\Object\Car</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Render\RenderThreeDimension.h">
+      <Filter>Game\Component\Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -92,6 +116,12 @@
     </ClCompile>
     <ClCompile Include="Game\Scene\PlayScene.cpp">
       <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Object\Car\Car.cpp">
+      <Filter>Game\Object\Car</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Render\RenderThreeDimension.cpp">
+      <Filter>Game\Component\Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

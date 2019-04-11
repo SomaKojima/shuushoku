@@ -5,7 +5,7 @@
 /// <summary>
 /// ゲームオブジェクトのリストクラス
 /// </summary>
-class GameObjectList : BidirectionalList<GameObject>::RegisterTo
+class GameObjectList : public BidirectionalList<GameObject>::RegisterTo
 {
 public:
 	// コンストラクタ

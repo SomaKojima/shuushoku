@@ -5,6 +5,7 @@
 #include "pch.h"
 #include "Game.h"
 
+#include "Game/SubGame.h"
 
 #if _DEBUG
 #define _CRTDBG_MAP_ALLOC
@@ -75,7 +76,8 @@ void Game::Update(DX::StepTimer const& timer)
     // TODO: Add your game logic here.
     elapsedTime;
 
-	m_subGame->Update(elapsedTime);
+	SubGame& subGame = SubGame::GetInstace();
+	subGame.Update(elapsedTime);
 
 	// デバッグカメラの更新
 	m_debugCamera->Update();
@@ -105,7 +107,9 @@ void Game::Render()
 	m_gridFloor->Render(context, m_view, m_projection);
 
 	// ここから描画処理を記述する
-	m_subGame->Renderer();
+
+	SubGame& subGame = SubGame::GetInstace();
+	subGame.Renderer();
 
 	// ここまで
 
@@ -203,8 +207,8 @@ void Game::CreateDeviceDependentResources()
 	m_gridFloor = std::make_unique<GridFloor>(device, context, m_states.get(), 10.0f, 10);
 
 	// サブゲームの作成
-	m_subGame = new SubGame(this);
-	m_subGame->Initialize();
+	SubGame& subGame = SubGame::GetInstace();
+	subGame.Initialize(this);
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
@@ -247,9 +251,9 @@ void Game::OnDeviceLost()
 	// グリッドの床の解放
 	m_gridFloor.reset();
 
-	// サブゲームの削除
-	m_subGame->Finalize();
-	delete m_subGame;
+	// サブゲームの終了処理
+	SubGame& subGame = SubGame::GetInstace();
+	subGame.Finalize();
 }
 
 void Game::OnDeviceRestored()

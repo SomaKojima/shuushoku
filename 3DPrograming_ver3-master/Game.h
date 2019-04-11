@@ -10,8 +10,6 @@
 #include "DebugCamera.h"
 #include "GridFloor.h"
 
-#include "Game/SubGame.h"
-
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
 class Game : public DX::IDeviceNotify
@@ -39,6 +37,17 @@ public:
 
     // Properties
     void GetDefaultSize( int& width, int& height ) const;
+
+	DirectX::SpriteBatch* GetSpriteBatch() { return m_sprites.get(); }
+
+	ID3D11Device* GetDevice()
+	{
+		return m_deviceResources->GetD3DDevice();
+	}
+	ID3D11DeviceContext* GetContext() { return m_deviceResources->GetD3DDeviceContext(); }
+	DirectX::CommonStates* GetStates() { return m_states.get(); }
+	const DirectX::SimpleMath::Matrix& GetView() { return m_view; }
+	const DirectX::SimpleMath::Matrix& GetProjection() { return m_projection; }
 
 private:
 
@@ -85,8 +94,4 @@ private:
 
 	// グリッドの床
 	std::unique_ptr<GridFloor> m_gridFloor;
-
-
-	// サブゲーム
-	SubGame* m_subGame;
 };

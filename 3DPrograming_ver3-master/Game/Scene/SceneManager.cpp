@@ -60,6 +60,7 @@ void SceneManager::Finalize()
 {
 	if (!m_currentScene)return;
 	m_currentScene->GetGameObjectList().Finalize();
+	m_currentScene->GetGameObjectList().Clear();
 	delete m_currentScene;
 	m_currentScene = nullptr;
 }
@@ -70,12 +71,7 @@ void SceneManager::Finalize()
 void SceneManager::ChangeScene()
 {
 	// 現在のシーンの終了処理
-	if (m_currentScene)
-	{
-		m_currentScene->GetGameObjectList().Finalize();
-		delete m_currentScene;
-		m_currentScene = nullptr;
-	}
+	Finalize();
 
 	// 新しいシーンの作成
 	Scene* scene = nullptr;
@@ -95,5 +91,6 @@ void SceneManager::ChangeScene()
 
 	// シーンの初期化
 	if (!m_currentScene)return;
+	m_currentScene->Instance();
 	m_currentScene->GetGameObjectList().Initialize();
 }

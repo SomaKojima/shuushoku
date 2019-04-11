@@ -1,5 +1,6 @@
 #include "../../pch.h"
 #include "PlayScene.h"
+#include "../Object/Car/Car.h"
 
 /// <summary>
 /// コンストラクタ
@@ -20,4 +21,8 @@ PlayScene::~PlayScene()
 /// </summary>
 void PlayScene::Instance()
 {
+	// 車の作成
+	GameObject* obj = new Car();
+	obj->Instance();
+	m_gameObjectList.Add(obj);
 }

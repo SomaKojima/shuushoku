@@ -5,9 +5,9 @@
 #include "Utility/InputManager.h"
 #include "Scene/SceneManager.h"
 
-SubGame::SubGame(Game * game)
+SubGame::SubGame()
 	:
-	m_game(game)
+	m_game(nullptr)
 {
 }
 
@@ -16,8 +16,9 @@ SubGame::~SubGame()
 	m_game = nullptr;
 }
 
-void SubGame::Initialize()
+void SubGame::Initialize(Game* game)
 {
+	m_game = game;
 	// シーン管理の初期化
 	SceneManager& sceneManager = SceneManager::GetInstace();
 	sceneManager.ChangeSceneID(SceneManager::SceneID::Play);
@@ -32,7 +33,7 @@ void SubGame::Update(float elapsedTime)
 
 	// シーンの更新
 	SceneManager& sceneManager = SceneManager::GetInstace();
-	sceneManager.Initialize();
+	sceneManager.Update(elapsedTime);
 }
 
 void SubGame::Renderer()

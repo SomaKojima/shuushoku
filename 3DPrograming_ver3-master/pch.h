@@ -53,6 +53,8 @@
 #include <PrimitiveBatch.h>
 #include <VertexTypes.h>
 
+#include <Model.h>
+
 namespace DX
 {
     // Helper class for COM exceptions

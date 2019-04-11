@@ -83,8 +83,8 @@ public:
 
 private:
 	// setter
-	void SetPre(T* bl) { m_pPre = bl; }
-	void SetNext(T* bl) { m_pNext = bl; }
+	void SetPre(BidirectionalList<T>* bl) { m_pPre = bl; }
+	void SetNext(BidirectionalList<T>* bl) { m_pNext = bl; }
 	void SetRegisterTo(RegisterTo* registerTo) { m_pRegisterTo = registerTo; }
 
 private:
@@ -162,8 +162,14 @@ inline bool BidirectionalList<T>::RegisterTo::Add(BidirectionalList<T>* obj)
 template<class T>
 inline void BidirectionalList<T>::RegisterTo::Clear()
 {
+	T* obj = nullptr;
 	while (m_pTop)
 	{
+		// リストの先頭に入っている要素を取得
+		obj = m_pTop->GetObj();
+		// リストから離れる
 		m_pTop->Remove();
+		// 離れてから消す
+		delete obj;
 	}
 }

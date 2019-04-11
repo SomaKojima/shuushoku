@@ -22,7 +22,7 @@ public:
 	virtual void Instance() = 0;
 
 	GameObjectList& GetGameObjectList() { return m_gameObjectList; }
-private:
+protected:
 	GameObjectList m_gameObjectList;
 };
 
