@@ -79,7 +79,7 @@ public:
 	BidirectionalList<T>* GetPre() { return m_pPre; }
 	BidirectionalList<T>* GetNext() { return m_pNext; }
 	RegisterTo* GetRegisterTo() { return m_pRegisterTo; }
-	T* GetObj() { return m_pObj; }
+	T& GetObj() { return *m_pObj; }
 
 private:
 	// setter
@@ -166,7 +166,7 @@ inline void BidirectionalList<T>::RegisterTo::Clear()
 	while (m_pTop)
 	{
 		// リストの先頭に入っている要素を取得
-		obj = m_pTop->GetObj();
+		obj = &m_pTop->GetObj();
 		// リストから離れる
 		m_pTop->Remove();
 		// 離れてから消す

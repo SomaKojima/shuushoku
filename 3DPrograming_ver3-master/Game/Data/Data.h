@@ -2,29 +2,29 @@
 
 enum Tag
 {
-	Camera = -1,
+	Tag_Camera = -1,
 
-	Default = 0,
-	Player1,
-	Player2,
-	Room,
+	Tag_Default = 0,
+	Tag_Player1,
+	Tag_Player2,
+	Tag_Room,
 
-	Max
+	Tag_Max
 };
 
 enum SpriteDepth
 {
-	ZERO,
-	ONE,
-	TOW,
-	THREE,
-	FOUR,
-	FIVE,
-	SIX,
-	SEVEN,
-	EIGHT,
-	NINE,
-	TEN,
+	DEPTH_ZERO,
+	DEPTH_ONE,
+	DEPTH_TOW,
+	DEPTH_THREE,
+	DEPTH_FOUR,
+	DEPTH_FIVE,
+	DEPTH_SIX,
+	DEPTH_SEVEN,
+	DEPTH_EIGHT,
+	DEPTH_NINE,
+	DEPTH_TEN,
 
 	SPRITE_DEPTH_MAX
 };

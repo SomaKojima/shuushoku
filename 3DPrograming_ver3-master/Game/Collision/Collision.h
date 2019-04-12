@@ -19,7 +19,7 @@
 /// <summary>
 /// ‘O•ûéŒ¾
 /// </summary>
-class Entity;
+class GameObject;
 class CollisionComponent;
 class SphereCollisionComponent;
 class BoxCollisionComponent;
@@ -253,7 +253,7 @@ private:
 	static bool CheckTwo(const T* shape, CollisionComponent* collision, CollisionData* data);
 
 public:
-	static bool HitCheck(Entity* entity, Entity* entity2, CollisionData* data, CollisionData* data2);
+	static bool HitCheck(GameObject* entity, GameObject* entity2, CollisionData* data, CollisionData* data2);
 };
 
 

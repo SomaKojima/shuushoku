@@ -1,5 +1,6 @@
 #include "../../pch.h"
 #include "PlayScene.h"
+#include "../Object/GameObject.h"
 #include "../Object/Car/Car.h"
 #include "../Camera/Camera.h"
 

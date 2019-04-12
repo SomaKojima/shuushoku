@@ -139,24 +139,24 @@ bool CLiner8TreeManager::CreateNewCell(DWORD Elem)
 	return true;
 }
 
-bool CLiner8TreeManager::Register(GameObject* obj, float radius)
+bool CLiner8TreeManager::Register(GameObject& obj, float radius)
 {
-	if (!obj)
+	if (!&obj)
 	{
 		return false;
 	}
-	Vector3 b = Vector3::Transform(Vector3::Zero, obj->GetTransform().WorldMatrix());
+	Vector3 b = Vector3::Transform(Vector3::Zero, obj.GetTransform().WorldMatrix());
 	Vector3 c = b;
 	b += Vector3(radius, radius * 2, radius);
 	c += Vector3(-radius, 0.0f, -radius);
 	DWORD elem = Get2PointMortonOrder(b, c);
 
-	obj->GetOFT()->Remove();
+	obj.GetOFT().Remove();
 	if (!ppCellAry[elem])
 	{
 		CreateNewCell(elem);
 	}
-	ppCellAry[elem]->Add(entity->GetOFT());
+	ppCellAry[elem]->Add(&obj.GetOFT());
 
 	return true;
 }
@@ -171,7 +171,7 @@ bool CLiner8TreeManager::HitCheck()
 
 	int elem = 0;
 	// 当たり判定スタックを作成
-	vector<OBJECT_FOR_TREE*> cStack;
+	vector<BidirectionalList<OBJECT_FOR_TREE>*> cStack;
 
 	// ルート空間の当たり判定
 	HitCheckRoom(ppCellAry[elem], elem, cStack);
@@ -179,15 +179,15 @@ bool CLiner8TreeManager::HitCheck()
 	return false;
 }
 
-void CLiner8TreeManager::HitCheckRoom(CCell* room, int elem, std::vector<OBJECT_FOR_TREE*>& cStack)
+void CLiner8TreeManager::HitCheckRoom(CCell* room, int elem, std::vector<BidirectionalList<OBJECT_FOR_TREE>*>& cStack)
 {
 	if (!room)
 	{
 		return;
 	}
 
-	OBJECT_FOR_TREE* pOFT = room->GetTop();
-	OBJECT_FOR_TREE* pNextOFT = nullptr;
+	BidirectionalList<OBJECT_FOR_TREE>* pOFT = room->GetTop();
+	BidirectionalList<OBJECT_FOR_TREE>* pNextOFT = nullptr;
 
 	Collision::CollisionData data;
 	Collision::CollisionData data2;
@@ -197,14 +197,14 @@ void CLiner8TreeManager::HitCheckRoom(CCell* room, int elem, std::vector<OBJECT_
 		for (auto ite = cStack.begin(); ite != cStack.end(); ite++)
 		{
 			// 当たり判定マトリクスの確認
-			if (!GetCollisionMatrix(pOFT->GetObj()->GetTag(), (*ite)->GetObj()->GetTag()))
+			if (!GetCollisionMatrix(pOFT->GetObj().GetGameObject().GetTag(), (*ite)->GetObj().GetGameObject().GetTag()))
 			{
 				continue;
 			}
-			if (Collision::HitCheck(pOFT->GetObj() , (*ite)->GetObj(), &data, &data2))
+			if (Collision::HitCheck(&pOFT->GetObj().GetGameObject(), &(*ite)->GetObj().GetGameObject(), &data, &data2))
 			{
-				pOFT->GetObj()->OnCollideComponent(*(*ite)->GetObj(), &data);
-				(*ite)->GetObj()->OnCollideComponent(*pOFT->GetObj(), &data2);
+				pOFT->GetObj().GetGameObject().OnCollision((*ite)->GetObj().GetGameObject(), data);
+				(*ite)->GetObj().GetGameObject().OnCollision(pOFT->GetObj().GetGameObject(), data2);
 			}
 		}
 		// 同じ空間内のオブジェクトと当たり判定を取る
@@ -213,15 +213,15 @@ void CLiner8TreeManager::HitCheckRoom(CCell* room, int elem, std::vector<OBJECT_
 		while (pNextOFT)
 		{
 			// 当たり判定マトリクスの確認
-			if (!GetCollisionMatrix(pOFT->GetObj()->GetTag(), pNextOFT->GetObj()->GetTag()))
+			if (!GetCollisionMatrix(pOFT->GetObj().GetGameObject().GetTag(), pNextOFT->GetObj().GetGameObject().GetTag()))
 			{
 				pNextOFT = pNextOFT->GetNext();
 				continue;
 			}
-			if (Collision::HitCheck(pOFT->GetObj(), pNextOFT->GetObj(), &data, &data2))
+			if (Collision::HitCheck(&pOFT->GetObj().GetGameObject(), &pNextOFT->GetObj().GetGameObject(), &data, &data2))
 			{
-				pOFT->GetObj()->OnCollideComponent(*pNextOFT->GetObj(), &data);
-				pNextOFT->GetObj()->OnCollideComponent(*pOFT->GetObj(), &data2);
+				pOFT->GetObj().GetGameObject().OnCollision(pNextOFT->GetObj().GetGameObject(), data);
+				pNextOFT->GetObj().GetGameObject().OnCollision(pOFT->GetObj().GetGameObject(), data2);
 			}
 			pNextOFT = pNextOFT->GetNext();
 		}
@@ -266,26 +266,26 @@ void CLiner8TreeManager::HitCheckRoom(CCell* room, int elem, std::vector<OBJECT_
 
 void CLiner8TreeManager::InitCollisionMatrix()
 {
-	m_collisionMatrix.resize(Tag::Max);
-	for (int i = 0; i < Tag::Max; i++)
+	m_collisionMatrix.resize(Tag::Tag_Max);
+	for (int i = 0; i < Tag::Tag_Max; i++)
 	{
-		m_collisionMatrix[i].resize(Tag::Max - i, true);
+		m_collisionMatrix[i].resize(Tag::Tag_Max - i, true);
 	}
 
-	SetCollisionMatrix(Tag::Player1, Tag::Player1, false);
-	SetCollisionMatrix(Tag::Player2, Tag::Player2, false);
-	SetCollisionMatrix(Tag::Room, Tag::Room, false);
+	SetCollisionMatrix(Tag::Tag_Player1, Tag::Tag_Player1, false);
+	SetCollisionMatrix(Tag::Tag_Player2, Tag::Tag_Player2, false);
+	SetCollisionMatrix(Tag::Tag_Room, Tag::Tag_Room, false);
 }
 
 bool CLiner8TreeManager::GetCollisionMatrix(Tag tag1, Tag tag2)
 {
 	if ((tag1 == tag2) || (tag1 < tag2))
 	{
-		return m_collisionMatrix[tag1][Tag::Max - 1 - tag2];
+		return m_collisionMatrix[tag1][Tag::Tag_Max - 1 - tag2];
 	}
 	else
 	{
-		return m_collisionMatrix[tag2][Tag::Max - 1 - tag1];
+		return m_collisionMatrix[tag2][Tag::Tag_Max - 1 - tag1];
 	}
 	return false;
 }
@@ -294,12 +294,12 @@ void CLiner8TreeManager::SetCollisionMatrix(Tag tag1, Tag tag2, bool flag)
 {
 	if ((tag1 == tag2) || (tag1 < tag2))
 	{
-		m_collisionMatrix[tag1][Tag::Max - 1 - tag2] = flag;
+		m_collisionMatrix[tag1][Tag::Tag_Max - 1 - tag2] = flag;
 		return;
 	}
 	else
 	{
-		m_collisionMatrix[tag2][Tag::Max - 1 - tag1] = flag;
+		m_collisionMatrix[tag2][Tag::Tag_Max - 1 - tag1] = flag;
 		return;
 	}
 	return;

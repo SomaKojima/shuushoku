@@ -9,10 +9,9 @@
 /// ヘッダのインクルード
 /// </summary>
 #include "../../pch.h"
-#include "../Object/Entity.h"
+#include "../Object/GameObject.h"
 #include "Collision.h"
-
-#include "../Component/ComponentLib.h"
+#include "CollisionComponent.h"
 
 /// <summary>
 /// 名前空間
@@ -277,7 +276,7 @@ bool Collision::CheckOne(CollisionComponent* collision, CollisionComponent* coll
 /// <param name="entity">実体</param>
 /// <param name="repulsionVel">反発速度</param>
 /// <returns>当たり判定</returns>
-bool Collision::HitCheck(Entity * entity, Entity* entity2, CollisionData *data, CollisionData* data2)
+bool Collision::HitCheck(GameObject * entity, GameObject* entity2, CollisionData *data, CollisionData* data2)
 {
 	if(!entity || !entity2)
 	{

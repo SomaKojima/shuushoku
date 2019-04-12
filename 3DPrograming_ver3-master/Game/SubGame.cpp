@@ -4,6 +4,7 @@
 
 #include "Utility/InputManager.h"
 #include "Scene/SceneManager.h"
+#include "Collision/CCell.h"
 
 SubGame::SubGame()
 	:
@@ -18,7 +19,13 @@ SubGame::~SubGame()
 
 void SubGame::Initialize(Game* game)
 {
+	// ƒQ[ƒ€‚Ìİ’è
 	m_game = game;
+
+	// “–‚½‚è”»’è‚Ì‹óŠÔ‚ğì¬
+	CLiner8TreeManager& cLiner8TreeManager = CLiner8TreeManager::GetInstace();
+	cLiner8TreeManager.Init(4, -100.0f, 100.0f, 100.0f, 0.0f, 100.0f, -100.0f);
+
 	// ƒV[ƒ“ŠÇ—‚Ì‰Šú‰»
 	SceneManager& sceneManager = SceneManager::GetInstace();
 	sceneManager.ChangeSceneID(SceneManager::SceneID::Play);

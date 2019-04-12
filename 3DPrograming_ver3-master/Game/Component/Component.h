@@ -3,6 +3,7 @@
 #include "../../StepTimer.h"
 #include "../../Game.h"
 #include "../Object/GameObject.h"
+#include "../Collision/Collision.h"
 
 /// <summary>
 /// コンポーネントクラス
@@ -29,7 +30,7 @@ public:
 	virtual void Finalize() {};
 
 	// 当たり判定の処理
-	virtual void OnCollide() {}
+	virtual void OnCollision(GameObject& obj, Collision::CollisionData& data) {}
 
 	// オブジェクトを設定する
 	void SetGameObject(GameObject* obj) { m_gameObject = obj; }

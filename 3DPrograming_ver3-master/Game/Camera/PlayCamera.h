@@ -1,7 +1,6 @@
 #pragma once
 
 #include "BaseCamera.h"
-#include "../Object/GameObject.h"
 #include "../Component/Component.h"
 
 class GameObject;

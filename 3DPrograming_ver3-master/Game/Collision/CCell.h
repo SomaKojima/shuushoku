@@ -14,6 +14,7 @@ public:
 	OBJECT_FOR_TREE(GameObject* pObject):BidirectionalList<OBJECT_FOR_TREE>(this), m_gameObject(pObject) {}
 	~OBJECT_FOR_TREE() { m_gameObject = nullptr; }
 
+	GameObject& GetGameObject() { return *m_gameObject; }
 private:
 	GameObject* m_gameObject;
 };
@@ -45,9 +46,9 @@ public:
 	DWORD Get2PointMortonOrder(DirectX::SimpleMath::Vector3 pos, DirectX::SimpleMath::Vector3 pos2);
 
 	bool CreateNewCell(DWORD Elem);
-	bool Register(GameObject* entity, float radius);
+	bool Register(GameObject& obj, float radius);
 	bool HitCheck();
-	void  HitCheckRoom(CCell* room, int elem, std::vector<OBJECT_FOR_TREE*>& cStack);
+	void  HitCheckRoom(CCell* room, int elem, std::vector<BidirectionalList<OBJECT_FOR_TREE>*>& cStack);
 
 	CCell** GetCCell() { return ppCellAry; }
 

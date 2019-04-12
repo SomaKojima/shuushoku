@@ -169,6 +169,14 @@
     <ClInclude Include="Game\Camera\PlayCamera.h" />
     <ClInclude Include="Game\Collision\CCell.h" />
     <ClInclude Include="Game\Collision\Collision.h" />
+    <ClInclude Include="Game\Collision\CollisionComponent.h" />
+    <ClInclude Include="Game\Collision\CollisionSphere.h" />
+    <ClInclude Include="Game\Collision\DebugCollision\DebugBox.h" />
+    <ClInclude Include="Game\Collision\DebugCollision\DebugCapsule.h" />
+    <ClInclude Include="Game\Collision\DebugCollision\DebugLine.h" />
+    <ClInclude Include="Game\Collision\DebugCollision\DebugMesh.h" />
+    <ClInclude Include="Game\Collision\DebugCollision\DebugPlane.h" />
+    <ClInclude Include="Game\Collision\DebugCollision\DebugSphere.h" />
     <ClInclude Include="Game\Component\Component.h" />
     <ClInclude Include="Game\Component\Render\RenderThreeDimension.h" />
     <ClInclude Include="Game\Data\Data.h" />
@@ -176,6 +184,7 @@
     <ClInclude Include="Game\Object\Car\Car.h" />
     <ClInclude Include="Game\Object\GameObject.h" />
     <ClInclude Include="Game\Object\GameObjectList.h" />
+    <ClInclude Include="Game\Object\Room\Room.h" />
     <ClInclude Include="Game\Object\Transform.h" />
     <ClInclude Include="Game\Scene\PlayScene.h" />
     <ClInclude Include="Game\Scene\SceneManager.h" />
@@ -197,11 +206,20 @@
     <ClCompile Include="Game\Camera\PlayCamera.cpp" />
     <ClCompile Include="Game\Collision\CCell.cpp" />
     <ClCompile Include="Game\Collision\Collision.cpp" />
+    <ClCompile Include="Game\Collision\CollisionComponent.cpp" />
+    <ClCompile Include="Game\Collision\CollisionSphere.cpp" />
+    <ClCompile Include="Game\Collision\DebugCollision\DebugBox.cpp" />
+    <ClCompile Include="Game\Collision\DebugCollision\DebugCapsule.cpp" />
+    <ClCompile Include="Game\Collision\DebugCollision\DebugLine.cpp" />
+    <ClCompile Include="Game\Collision\DebugCollision\DebugMesh.cpp" />
+    <ClCompile Include="Game\Collision\DebugCollision\DebugPlane.cpp" />
+    <ClCompile Include="Game\Collision\DebugCollision\DebugSphere.cpp" />
     <ClCompile Include="Game\Component\Render\RenderThreeDimension.cpp" />
     <ClCompile Include="Game\Data\Model\ModelData.cpp" />
     <ClCompile Include="Game\Object\Car\Car.cpp" />
     <ClCompile Include="Game\Object\GameObject.cpp" />
     <ClCompile Include="Game\Object\GameObjectList.cpp" />
+    <ClCompile Include="Game\Object\Room\Room.cpp" />
     <ClCompile Include="Game\Object\Transform.cpp" />
     <ClCompile Include="Game\Scene\PlayScene.cpp" />
     <ClCompile Include="Game\Scene\SceneManager.cpp" />
@@ -231,6 +249,14 @@
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Resources\Models\%(Filename).cmo</ContentOutput>
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources\Models\%(Filename).cmo</ContentOutput>
     </MeshContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Game\Collision\DebugCollision\DebugBox.inc" />
+    <None Include="Game\Collision\DebugCollision\DebugCapsule.inc" />
+    <None Include="Game\Collision\DebugCollision\DebugPlane.inc" />
+    <None Include="Game\Collision\DebugCollision\DebugSphere.inc" />
+    <None Include="PixelShader.inc" />
+    <None Include="VertexShader.inc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

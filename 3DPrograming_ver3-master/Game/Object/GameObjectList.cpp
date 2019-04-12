@@ -23,7 +23,7 @@ void GameObjectList::Initialize()
 	BidirectionalList<GameObject>* obj = m_pTop;
 	while (obj)
 	{
-		obj->GetObj()->Initialize();
+		obj->GetObj().Initialize();
 		obj = obj->GetNext();
 	}
 }
@@ -37,7 +37,7 @@ void GameObjectList::Update(float elapsedTime)
 	BidirectionalList<GameObject>* obj = m_pTop;
 	while (obj)
 	{
-		obj->GetObj()->Update(elapsedTime);
+		obj->GetObj().Update(elapsedTime);
 		obj = obj->GetNext();
 	}
 }
@@ -50,7 +50,7 @@ void GameObjectList::Render()
 	BidirectionalList<GameObject>* obj = m_pTop;
 	while (obj)
 	{
-		obj->GetObj()->Render();
+		obj->GetObj().Render();
 		obj = obj->GetNext();
 	}
 }
@@ -63,7 +63,7 @@ void GameObjectList::Finalize()
 	BidirectionalList<GameObject>* obj = m_pTop;
 	while (obj)
 	{
-		obj->GetObj()->Finalize();
+		obj->GetObj().Finalize();
 		obj = obj->GetNext();
 	}
 }

@@ -15,6 +15,7 @@ Transform::Transform()
 	m_localAccel(DirectX::SimpleMath::Vector3::Zero),
 	m_localDir(DirectX::SimpleMath::Quaternion::Identity),
 	m_localMatrix(DirectX::SimpleMath::Matrix::Identity),
+	m_collisionSize(3),
 	m_parent(nullptr)
 {
 }

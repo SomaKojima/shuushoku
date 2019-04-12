@@ -44,6 +44,12 @@
     <Filter Include="Game\Collision">
       <UniqueIdentifier>{d3fec7db-8371-41cd-9172-214032b56a5c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Collision\DebugCollision">
+      <UniqueIdentifier>{37af5cdc-e5fa-42e3-8595-9e6f2a0f1f11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Room">
+      <UniqueIdentifier>{86313b93-ac04-4520-bf42-39d03711a23d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -116,6 +122,33 @@
     <ClInclude Include="Game\Data\Data.h">
       <Filter>Game\Data</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Collision\DebugCollision\DebugBox.h">
+      <Filter>Game\Collision\DebugCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collision\DebugCollision\DebugCapsule.h">
+      <Filter>Game\Collision\DebugCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collision\DebugCollision\DebugLine.h">
+      <Filter>Game\Collision\DebugCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collision\DebugCollision\DebugMesh.h">
+      <Filter>Game\Collision\DebugCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collision\DebugCollision\DebugPlane.h">
+      <Filter>Game\Collision\DebugCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collision\DebugCollision\DebugSphere.h">
+      <Filter>Game\Collision\DebugCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collision\CollisionSphere.h">
+      <Filter>Game\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collision\CollisionComponent.h">
+      <Filter>Game\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Object\Room\Room.h">
+      <Filter>Game\Object\Room</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -174,6 +207,33 @@
     <ClCompile Include="Game\Collision\Collision.cpp">
       <Filter>Game\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Collision\DebugCollision\DebugBox.cpp">
+      <Filter>Game\Collision\DebugCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collision\DebugCollision\DebugCapsule.cpp">
+      <Filter>Game\Collision\DebugCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collision\DebugCollision\DebugLine.cpp">
+      <Filter>Game\Collision\DebugCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collision\DebugCollision\DebugMesh.cpp">
+      <Filter>Game\Collision\DebugCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collision\DebugCollision\DebugPlane.cpp">
+      <Filter>Game\Collision\DebugCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collision\DebugCollision\DebugSphere.cpp">
+      <Filter>Game\Collision\DebugCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collision\CollisionSphere.cpp">
+      <Filter>Game\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collision\CollisionComponent.cpp">
+      <Filter>Game\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Object\Room\Room.cpp">
+      <Filter>Game\Object\Room</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -189,8 +249,24 @@
     </Manifest>
   </ItemGroup>
   <ItemGroup>
-    <None Include="FBX\car_body.FBX">
-      <Filter>FBX</Filter>
+    <MeshContentTask Include="FBX\car_body.FBX">
+      <Filter>Assets</Filter>
+    </MeshContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Game\Collision\DebugCollision\DebugBox.inc">
+      <Filter>Game\Collision\DebugCollision</Filter>
     </None>
+    <None Include="Game\Collision\DebugCollision\DebugCapsule.inc">
+      <Filter>Game\Collision\DebugCollision</Filter>
+    </None>
+    <None Include="Game\Collision\DebugCollision\DebugPlane.inc">
+      <Filter>Game\Collision\DebugCollision</Filter>
+    </None>
+    <None Include="Game\Collision\DebugCollision\DebugSphere.inc">
+      <Filter>Game\Collision\DebugCollision</Filter>
+    </None>
+    <None Include="VertexShader.inc" />
+    <None Include="PixelShader.inc" />
   </ItemGroup>
 </Project>
