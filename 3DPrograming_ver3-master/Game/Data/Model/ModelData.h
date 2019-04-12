@@ -25,6 +25,12 @@ class CarBodyModel : public ModelData, public Singleton<CarBodyModel>
 public:
 	// コンストラクタ
 	CarBodyModel();
-	// デストラクタ
-	~CarBodyModel();
 };
+
+class RoomModel : public ModelData, public Singleton<RoomModel>
+{
+public:
+	// コンストラクタ
+	RoomModel();
+};
+

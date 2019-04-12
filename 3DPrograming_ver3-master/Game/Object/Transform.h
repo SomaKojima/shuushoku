@@ -19,6 +19,7 @@ public:
 
 	// ワールド座標を取得する
 	DirectX::SimpleMath::Vector3 WorldPos();
+	void WorldPos(DirectX::SimpleMath::Vector3& pos);
 
 	// ワールド座標の速度を取得する
 	DirectX::SimpleMath::Vector3 WorldVel();
@@ -35,6 +36,7 @@ public:
 
 	// ローカル座標を取得
 	DirectX::SimpleMath::Vector3 LocalPos() { return m_localPos; }
+	void LocalPos(DirectX::SimpleMath::Vector3& pos) { m_localPos = pos; }
 
 	// ローカル速度を取得
 	DirectX::SimpleMath::Vector3 LocalVel() { return m_localVel; }
@@ -42,12 +44,15 @@ public:
 
 	// ローカル加速度を取得
 	DirectX::SimpleMath::Vector3 LocalAccel() { return m_localAccel; }
+	void LocalAccel(DirectX::SimpleMath::Vector3& accel) { m_localAccel = accel; }
 
 	// ローカル向きを取得
 	DirectX::SimpleMath::Quaternion LocalDir() { return m_localDir; }
+	void LocalDir(DirectX::SimpleMath::Quaternion& dir) { m_localDir = dir; }
 
 	// ローカルマトリクスを取得
 	DirectX::SimpleMath::Matrix LocalMatrix() { return m_localMatrix; }
+	void LocalMatrix(DirectX::SimpleMath::Matrix& matrix) { m_localMatrix = matrix; }
 
 	// 大きさを取得
 	float CollisionSize() { return m_collisionSize; }

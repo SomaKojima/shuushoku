@@ -54,6 +54,16 @@ DirectX::SimpleMath::Vector3 Transform::WorldPos()
 }
 
 /// <summary>
+/// ワールド座標を設定
+/// </summary>
+/// <param name="pos"></param>
+void Transform::WorldPos(DirectX::SimpleMath::Vector3& pos)
+{
+	Vector3 _pos = pos - WorldPos();
+	m_localPos = pos;
+}
+
+/// <summary>
 /// ワールド座標の速度を取得
 /// </summary>
 /// <returns></returns>

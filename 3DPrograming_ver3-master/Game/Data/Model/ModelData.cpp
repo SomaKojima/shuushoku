@@ -18,6 +18,7 @@ ModelData::ModelData()
 /// </summary>
 ModelData::~ModelData()
 {
+	m_model.reset();
 }
 
 
@@ -30,10 +31,13 @@ CarBodyModel::CarBodyModel()
 	fx.SetDirectory(L"Resources\\Models");
 	m_model = Model::CreateFromCMO(device, L"Resources\\Models\\car_body.cmo", fx);
 }
+
 /// <summary>
-/// モデル＜車のボディ＞のデストラクタ
+/// モデル＜部屋＞のコンストラクタ
 /// </summary>
-CarBodyModel::~CarBodyModel()
+RoomModel::RoomModel()
 {
-	m_model.reset();
+	EffectFactory fx(device);
+	fx.SetDirectory(L"Resources\\Models");
+	m_model = Model::CreateFromCMO(device, L"Resources\\Models\\room.cmo", fx);
 }

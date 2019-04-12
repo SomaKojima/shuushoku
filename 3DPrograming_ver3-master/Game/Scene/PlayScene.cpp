@@ -3,6 +3,11 @@
 #include "../Object/GameObject.h"
 #include "../Object/Car/Car.h"
 #include "../Camera/Camera.h"
+#include "../Object/Room/Room.h"
+
+using namespace std;
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
 
 /// <summary>
 /// コンストラクタ
@@ -23,13 +28,20 @@ PlayScene::~PlayScene()
 /// </summary>
 void PlayScene::Instance()
 {
+	// 部屋の作成
+	GameObject* room = new Room();
+	room->Instance();
+	m_gameObjectList.Add(room);
+
 	// 車の作成
 	GameObject* car = new Car();
 	car->Instance();
+	car->GetTransform().LocalPos(Vector3(0, 2.0f, 0));
 	m_gameObjectList.Add(car);
 
 	// カメラの作成
 	GameObject* camera = new Camera(car);
 	camera->Instance();
 	m_gameObjectList.Add(camera);
+
 }

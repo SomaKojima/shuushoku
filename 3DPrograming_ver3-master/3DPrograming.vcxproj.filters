@@ -149,6 +149,9 @@
     <ClInclude Include="Game\Object\Room\Room.h">
       <Filter>Game\Object\Room</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Collision\CollisionMesh.h">
+      <Filter>Game\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -234,6 +237,9 @@
     <ClCompile Include="Game\Object\Room\Room.cpp">
       <Filter>Game\Object\Room</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Collision\CollisionMesh.cpp">
+      <Filter>Game\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -249,8 +255,11 @@
     </Manifest>
   </ItemGroup>
   <ItemGroup>
+    <MeshContentTask Include="FBX\room.FBX">
+      <Filter>FBX</Filter>
+    </MeshContentTask>
     <MeshContentTask Include="FBX\car_body.FBX">
-      <Filter>Assets</Filter>
+      <Filter>FBX</Filter>
     </MeshContentTask>
   </ItemGroup>
   <ItemGroup>

@@ -170,6 +170,7 @@
     <ClInclude Include="Game\Collision\CCell.h" />
     <ClInclude Include="Game\Collision\Collision.h" />
     <ClInclude Include="Game\Collision\CollisionComponent.h" />
+    <ClInclude Include="Game\Collision\CollisionMesh.h" />
     <ClInclude Include="Game\Collision\CollisionSphere.h" />
     <ClInclude Include="Game\Collision\DebugCollision\DebugBox.h" />
     <ClInclude Include="Game\Collision\DebugCollision\DebugCapsule.h" />
@@ -207,6 +208,7 @@
     <ClCompile Include="Game\Collision\CCell.cpp" />
     <ClCompile Include="Game\Collision\Collision.cpp" />
     <ClCompile Include="Game\Collision\CollisionComponent.cpp" />
+    <ClCompile Include="Game\Collision\CollisionMesh.cpp" />
     <ClCompile Include="Game\Collision\CollisionSphere.cpp" />
     <ClCompile Include="Game\Collision\DebugCollision\DebugBox.cpp" />
     <ClCompile Include="Game\Collision\DebugCollision\DebugCapsule.cpp" />
@@ -246,6 +248,10 @@
   <ItemGroup>
     <MeshContentTask Include="FBX\car_body.FBX">
       <FileType>Document</FileType>
+      <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Resources\Models\%(Filename).cmo</ContentOutput>
+      <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources\Models\%(Filename).cmo</ContentOutput>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\room.FBX">
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Resources\Models\%(Filename).cmo</ContentOutput>
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources\Models\%(Filename).cmo</ContentOutput>
     </MeshContentTask>
