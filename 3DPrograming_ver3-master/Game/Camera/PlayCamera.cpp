@@ -19,7 +19,7 @@ void PlayCamera::Initialize()
 
 void PlayCamera::Update(float elapsedTime)
 {
-	Vector3 eyeVec = Vector3::Transform(Vector3::Forward * 5.0f, m_target->GetTransform().WorldDir());
+	Vector3 eyeVec = Vector3::Transform(Vector3(0.0f, 3.0f, -5.0f), m_target->GetTransform().WorldDir());
 	Vector3 eyePos = m_target->GetTransform().WorldMatrix().Translation() + eyeVec;
 
 	SetPositionTarget(eyePos, m_target->GetTransform().WorldMatrix().Translation());

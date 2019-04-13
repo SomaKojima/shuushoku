@@ -10,11 +10,11 @@ using namespace DirectX::SimpleMath;
 /// </summary>
 Transform::Transform()
 	:
-	m_localPos(DirectX::SimpleMath::Vector3::Zero),
-	m_localVel(DirectX::SimpleMath::Vector3::Zero),
-	m_localAccel(DirectX::SimpleMath::Vector3::Zero),
-	m_localDir(DirectX::SimpleMath::Quaternion::Identity),
-	m_localMatrix(DirectX::SimpleMath::Matrix::Identity),
+	m_worldPos(DirectX::SimpleMath::Vector3::Zero),
+	m_worldVel(DirectX::SimpleMath::Vector3::Zero),
+	m_worldAccel(DirectX::SimpleMath::Vector3::Zero),
+	m_worldDir(DirectX::SimpleMath::Quaternion::Identity),
+	m_worldMatrix(DirectX::SimpleMath::Matrix::Identity),
 	m_collisionSize(3),
 	m_parent(nullptr)
 {
@@ -26,7 +26,7 @@ Transform::Transform()
 void Transform::Initialize()
 {
 	// 初期移動
-	m_localMatrix = Matrix::CreateFromQuaternion(m_localDir) * Matrix::CreateTranslation(m_localPos);
+	m_worldMatrix = Matrix::CreateFromQuaternion(m_worldDir) * Matrix::CreateTranslation(m_worldPos);
 }
 
 /// <summary>
@@ -36,69 +36,69 @@ void Transform::Initialize()
 void Transform::Update(float elapsedTime)
 {
 	// マトリクス/座標の更新
-	m_localVel += m_localAccel;
+	m_worldVel += m_worldAccel;
 
-	m_localPos += m_localVel;
+	m_localPos += m_worldVel;
 
 	m_localMatrix = Matrix::CreateFromQuaternion(m_localDir) * Matrix::CreateTranslation(m_localPos);
 }
 
 /// <summary>
-/// ワールド座標を取得
+/// ローカル座標を取得する
 /// </summary>
-/// <returns></returns>
-DirectX::SimpleMath::Vector3 Transform::WorldPos()
+/// <returns>親を基準にローカル座標を取得する：　親がいない場合はワールド座標を返す</returns>
+DirectX::SimpleMath::Vector3 Transform::GetWorldToLocal(DirectX::SimpleMath::Vector3 world, DirectX::SimpleMath::Vector3 parentWorld)
 {
-	if (!m_parent) return m_localPos;
-	return WorldMatrix().Translation();
+	if (m_parent)
+	{
+		// 逆回転を取得
+		Quaternion inv = Quaternion::Identity;
+		m_parent->WorldDir().Inverse(inv);
+		// 座標を計算
+		Vector3 vel = world - parentWorld;
+		return Vector3::Transform(vel, inv);
+	}
+	// 親がいない場合
+	return world;
 }
 
 /// <summary>
-/// ワールド座標を設定
+/// ローカル座標を取得する
 /// </summary>
-/// <param name="pos"></param>
-void Transform::WorldPos(DirectX::SimpleMath::Vector3& pos)
+/// <returns></returns>
+DirectX::SimpleMath::Vector3 Transform::SetLocalToWorld(DirectX::SimpleMath::Vector3 & local)
 {
-	Vector3 _pos = pos - WorldPos();
-	m_localPos = pos;
+	if (m_parent)return m_parent->WorldVel() + Vector3::Transform(local, LocalDir());
+	return Vector3::Transform(local, LocalDir());
+}
+
+
+/// <summary>
+/// ローカル座標の向き
+/// </summary>
+/// <returns></returns>
+DirectX::SimpleMath::Quaternion Transform::LocalDir()
+{
+	if (m_parent)
+	{
+		// 親の逆回転を加える(現在の向き　ー　親の向き)
+		Quaternion inv = Quaternion::Identity;
+		m_parent->WorldDir().Inverse(inv);
+		return m_worldDir * inv;
+	}
+	// 親がいなければ自身の回転を返す
+	return m_worldDir;
 }
 
 /// <summary>
-/// ワールド座標の速度を取得
+/// ローカル座標のマトリクス
 /// </summary>
 /// <returns></returns>
-DirectX::SimpleMath::Vector3 Transform::WorldVel()
+DirectX::SimpleMath::Matrix Transform::LocalMatrix()
 {
-	if (!m_parent) return Vector3::Transform(m_localVel, m_localDir);
-	return m_parent->WorldVel() + Vector3::Transform(m_localVel, m_localDir);
-}
-
-/// <summary>
-/// ワールド座標の速度を取得する
-/// </summary>
-/// <returns></returns>
-DirectX::SimpleMath::Vector3 Transform::WorldAccel()
-{
-	if (!m_parent) return Vector3::Transform(m_localAccel, m_localDir);
-	return m_parent->WorldAccel() + Vector3::Transform(m_localAccel, m_localDir);
-}
-
-/// <summary>
-/// ワールド座標の向き
-/// </summary>
-/// <returns></returns>
-DirectX::SimpleMath::Quaternion Transform::WorldDir()
-{
-	if (!m_parent) return m_localDir;
-	return m_parent->WorldDir() * m_localDir;
-}
-
-/// <summary>
-/// ワールド座標のマトリクス
-/// </summary>
-/// <returns></returns>
-DirectX::SimpleMath::Matrix Transform::WorldMatrix()
-{
-	if (!m_parent) return m_localMatrix;
-	return m_parent->WorldMatrix() * m_localMatrix;
+	if (m_parent)
+	{
+		return Matrix::CreateFromQuaternion(LocalDir()) * Matrix::CreateTranslation(LocalPos());
+	}
+	return m_worldMatrix;
 }

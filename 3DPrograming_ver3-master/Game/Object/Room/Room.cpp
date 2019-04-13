@@ -23,6 +23,6 @@ void Room::Instance()
 	AddComponent(renderThreeDimention);
 
 	// ƒƒbƒVƒ…‚Ì“–‚½‚è”»’è‚ğì¬
-	Component* collisionMesh = new CollisionMesh(L"");
+	Component* collisionMesh = new CollisionMesh(L"Resources\\Obj\\room.obj");
 	AddComponent(collisionMesh);
 }

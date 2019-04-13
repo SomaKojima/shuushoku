@@ -291,11 +291,10 @@ inline bool Collision::CheckTwo(const T * shape, CollisionComponent * collision,
 			triangle = &(*ite);
 			if (HitCheck(*triangle, *shape, &data->hitPos))
 			{
-				if (data) data->triangleList.push_back(&(*ite));
-				flag = true;
+				if (data) data->triangle = &(*ite);
+				return true;
 			}
 		}
-		return flag;
 	}
 	return false;
 }

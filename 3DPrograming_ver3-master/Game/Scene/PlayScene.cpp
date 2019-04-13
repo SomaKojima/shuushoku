@@ -31,12 +31,14 @@ void PlayScene::Instance()
 	// •”‰®‚Ìì¬
 	GameObject* room = new Room();
 	room->Instance();
+	room->GetTransform().CollisionSize(200);
 	m_gameObjectList.Add(room);
 
 	// Ô‚Ìì¬
 	GameObject* car = new Car();
 	car->Instance();
 	car->GetTransform().LocalPos(Vector3(0, 2.0f, 0));
+	car->GetTransform().CollisionSize(1.5f);
 	m_gameObjectList.Add(car);
 
 	// ƒJƒƒ‰‚Ìì¬

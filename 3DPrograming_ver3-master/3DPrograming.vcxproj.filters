@@ -50,6 +50,15 @@
     <Filter Include="Game\Object\Room">
       <UniqueIdentifier>{86313b93-ac04-4520-bf42-39d03711a23d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\Physics">
+      <UniqueIdentifier>{ef1d17b0-d4eb-4adb-8bc4-a193301bf86e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Command">
+      <UniqueIdentifier>{b4972360-40a0-40e7-a9e9-9e3d04a82c5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Command\core">
+      <UniqueIdentifier>{4eec2ac5-2bd1-4f1c-9112-44d32aaccf5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -152,6 +161,18 @@
     <ClInclude Include="Game\Collision\CollisionMesh.h">
       <Filter>Game\Collision</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Component\Physics\Gravity.h">
+      <Filter>Game\Component\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Object\Command\Command.h">
+      <Filter>Game\Object\Command\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Object\Command\InputHandler.h">
+      <Filter>Game\Object\Command\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Object\Command\Accel.h">
+      <Filter>Game\Object\Command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -239,6 +260,15 @@
     </ClCompile>
     <ClCompile Include="Game\Collision\CollisionMesh.cpp">
       <Filter>Game\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Physics\Gravity.cpp">
+      <Filter>Game\Component\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Object\Command\InputHandler.cpp">
+      <Filter>Game\Object\Command\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Object\Command\Accel.cpp">
+      <Filter>Game\Object\Command</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

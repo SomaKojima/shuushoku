@@ -105,6 +105,7 @@ void Game::Render()
 	// ビュー行列の作成
 	CameraManager& cameraManager = CameraManager::GetInstace();
 	m_view = cameraManager.GetView();
+	// デバッグビュー
 	//m_view = m_debugCamera->GetCameraMatrix();
 
 	// グリッドの床の描画

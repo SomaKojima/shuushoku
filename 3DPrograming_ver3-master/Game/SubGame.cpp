@@ -41,6 +41,10 @@ void SubGame::Update(float elapsedTime)
 	// シーンの更新
 	SceneManager& sceneManager = SceneManager::GetInstace();
 	sceneManager.Update(elapsedTime);
+
+	// 当たり判定の空間を作成
+	CLiner8TreeManager& cLiner8TreeManager = CLiner8TreeManager::GetInstace();
+	cLiner8TreeManager.HitCheck();
 }
 
 void SubGame::Renderer()

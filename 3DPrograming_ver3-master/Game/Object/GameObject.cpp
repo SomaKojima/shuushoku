@@ -33,10 +33,11 @@ void GameObject::Initialize()
 	// コンポーネントの初期化
 	for (auto ite = m_componentList.begin(); ite != m_componentList.end(); ite++)
 	{
-		(*ite)->SetGameObject(this);
 		(*ite)->Initialize();
 	}
 
+	// 変形の更新
+	m_transform.Update(0);
 	// 初期空間登録
 	CLiner8TreeManager& cLiner8TreeManager = CLiner8TreeManager::GetInstace();
 	cLiner8TreeManager.Register(*this, m_transform.CollisionSize());
@@ -103,4 +104,14 @@ void GameObject::OnCollision(GameObject& obj, Collision::CollisionData &data)
 	{
 		(*ite)->OnCollision(obj, data);
 	}
+}
+
+/// <summary>
+/// コンポーネントをリストに追加する
+/// </summary>
+/// <param name="component"></param>
+void GameObject::AddComponent(Component * component)
+{
+	component->SetGameObject(this);
+	m_componentList.push_back(component);
 }

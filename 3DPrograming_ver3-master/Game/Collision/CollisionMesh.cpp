@@ -78,7 +78,8 @@ void CollisionMesh::Render()
 	}
 	else if(m_obj)
 	{
-		//m_obj->DrawCollision(game->GetContext(), game->GetView(), game->GetProjection());
+		Game* game = SubGame::GetInstace().m_game;
+		m_obj->DrawCollision(game->GetContext(), game->GetView(), game->GetProjection());
 	}
 }
 

@@ -39,6 +39,9 @@ public:
 
 	void HitBack(const Collision::Triangle* triangle, DirectX::SimpleMath::Vector3& hitPos) override;
 
+	// •Çü‚è‚ÌŒvZ
+	DirectX::SimpleMath::Vector3& WallCulc(const Collision::Triangle* triangle, DirectX::SimpleMath::Vector3& hitPos, DirectX::SimpleMath::Vector3 vel);
+
 	DirectX::SimpleMath::Vector3 GetCenter() { return m_center; }
 	float GetRadius() { return m_radius; }
 

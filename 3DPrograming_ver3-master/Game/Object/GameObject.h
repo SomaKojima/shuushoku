@@ -41,7 +41,7 @@ public:
 	void AddChild(GameObject* gameObject) { m_transform.AddChild(&gameObject->m_transform); }
 
 	// コンポーネントのクラスに追加する
-	void AddComponent(Component* component) { m_componentList.push_back(component); }
+	void AddComponent(Component* component);
 	/// <summary>
 	/// コンポーネントを取得する関数
 	/// </summary>
