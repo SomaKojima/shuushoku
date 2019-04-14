@@ -20,6 +20,9 @@ public:
 	// I—¹ˆ—
 	void Finalize();
 
-public:
+	void SetGame(Game* game) { m_game = game; }
+	Game* GetGame() { return m_game; }
+
+private:
 	Game* m_game;
 };

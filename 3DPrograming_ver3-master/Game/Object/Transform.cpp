@@ -35,12 +35,43 @@ void Transform::Initialize()
 /// <param name="elapsedTime"></param>
 void Transform::Update(float elapsedTime)
 {
-	// マトリクス/座標の更新
+	//　座標の更新
 	m_worldVel += m_worldAccel;
+	m_worldPos += m_worldVel;
 
-	m_localPos += m_worldVel;
+	// マトリクスを更新
+	m_worldMatrix = Matrix::CreateFromQuaternion(m_worldDir) * Matrix::CreateTranslation(m_worldPos);
 
-	m_localMatrix = Matrix::CreateFromQuaternion(m_localDir) * Matrix::CreateTranslation(m_localPos);
+	// 子供のマトリクスを更新
+	UpdateChildMatrix(elapsedTime);
+}
+
+/// <summary>
+/// 子供のリストに追加する
+/// </summary>
+/// <param name="elapsedTime"></param>
+void Transform::UpdateChildMatrix(float elapsedTime)
+{
+	for (auto ite = m_childList.begin(); ite != m_childList.end(); ite++)
+	{
+		// マトリクスを更新
+		Matrix matrix = Matrix::CreateFromQuaternion((*ite)->WorldDir()) * Matrix::CreateTranslation((*ite)->WorldPos());
+		(*ite)->WorldMatrix(matrix);
+	}
+}
+
+void Transform::UpdateChildPos(DirectX::SimpleMath::Vector3 & pos)
+{
+	for (auto ite = m_childList.begin(); ite != m_childList.end(); ite++)
+	{
+		// 座標を更新
+		Vector3 pos = (*ite)->WorldPos() + m_worldVel;
+		(*ite)->WorldPos(pos);
+	}
+}
+
+void Transform::UpdateChildDir(DirectX::SimpleMath::Vector3 & dir)
+{
 }
 
 /// <summary>

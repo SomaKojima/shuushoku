@@ -42,7 +42,7 @@ void RenderThreeDimention::Render()
 		});
 	}
 	// ƒQ[ƒ€‚ğæ“¾
-	Game* game = SubGame::GetInstace().m_game;
+	Game* game = SubGame::GetInstace().GetGame();
 	// •`‰æ
 	if (game)
 	{
