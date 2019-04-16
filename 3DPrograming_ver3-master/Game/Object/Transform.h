@@ -32,7 +32,10 @@ public:
 
 	// ワールド座標を座標を取得
 	DirectX::SimpleMath::Vector3 WorldPos() { return m_worldPos; }
-	void WorldPos(DirectX::SimpleMath::Vector3& pos) { m_worldPos = pos; }
+	void WorldPos(DirectX::SimpleMath::Vector3& pos) { 
+		UpdateChildPos(m_worldPos - pos);
+		m_worldPos = pos; 
+	}
 
 	// ワールド速度を取得
 	DirectX::SimpleMath::Vector3 WorldVel() { return m_worldVel; }
@@ -44,7 +47,10 @@ public:
 
 	// ワールド向きを取得
 	DirectX::SimpleMath::Quaternion WorldDir() { return m_worldDir; }
-	void WorldDir(DirectX::SimpleMath::Quaternion& dir) { m_worldDir = dir; }
+	void WorldDir(DirectX::SimpleMath::Quaternion& dir) { 
+
+		m_worldDir = dir; 
+	}
 
 	// ワールドマトリクス取得
 	DirectX::SimpleMath::Matrix WorldMatrix() { return m_worldMatrix; }

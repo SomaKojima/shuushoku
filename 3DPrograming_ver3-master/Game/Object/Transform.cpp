@@ -54,6 +54,9 @@ void Transform::UpdateChildMatrix(float elapsedTime)
 {
 	for (auto ite = m_childList.begin(); ite != m_childList.end(); ite++)
 	{
+		// 座標を更新
+		Vector3 pos = (*ite)->WorldPos() + m_worldVel;
+		(*ite)->WorldPos(pos);
 		// マトリクスを更新
 		Matrix matrix = Matrix::CreateFromQuaternion((*ite)->WorldDir()) * Matrix::CreateTranslation((*ite)->WorldPos());
 		(*ite)->WorldMatrix(matrix);
@@ -65,13 +68,20 @@ void Transform::UpdateChildPos(DirectX::SimpleMath::Vector3 & pos)
 	for (auto ite = m_childList.begin(); ite != m_childList.end(); ite++)
 	{
 		// 座標を更新
-		Vector3 pos = (*ite)->WorldPos() + m_worldVel;
-		(*ite)->WorldPos(pos);
+		(*ite)->WorldPos((*ite)->WorldPos() + pos);
+		(*ite)->UpdateChildPos(pos);
 	}
 }
 
 void Transform::UpdateChildDir(DirectX::SimpleMath::Vector3 & dir)
 {
+	for (auto ite = m_childList.begin(); ite != m_childList.end(); ite++)
+	{
+		// 向きを更新
+		Quaternion q = (*ite)->WorldDir() * dir;
+		(*ite)->WorldDir(q);
+		(*ite)->UpdateChildDir(dir);
+	}
 }
 
 /// <summary>
