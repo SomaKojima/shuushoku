@@ -53,11 +53,14 @@
     <Filter Include="Game\Component\Physics">
       <UniqueIdentifier>{ef1d17b0-d4eb-4adb-8bc4-a193301bf86e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Object\Command">
+    <Filter Include="Game\Command">
       <UniqueIdentifier>{b4972360-40a0-40e7-a9e9-9e3d04a82c5f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Object\Command\core">
+    <Filter Include="Game\Command\core">
       <UniqueIdentifier>{4eec2ac5-2bd1-4f1c-9112-44d32aaccf5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Controller">
+      <UniqueIdentifier>{72d66313-d5b8-441a-9b59-08adc895b349}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -164,14 +167,20 @@
     <ClInclude Include="Game\Component\Physics\Gravity.h">
       <Filter>Game\Component\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Object\Command\Command.h">
-      <Filter>Game\Object\Command\core</Filter>
+    <ClInclude Include="Game\Command\Accel.h">
+      <Filter>Game\Command</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Object\Command\InputHandler.h">
-      <Filter>Game\Object\Command\core</Filter>
+    <ClInclude Include="Game\Command\Command.h">
+      <Filter>Game\Command\core</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Object\Command\Accel.h">
-      <Filter>Game\Object\Command</Filter>
+    <ClInclude Include="Game\Command\InputHandler.h">
+      <Filter>Game\Command\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Controller\PlayerController.h">
+      <Filter>Game\Component\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Physics\Friction.h">
+      <Filter>Game\Component\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -264,11 +273,17 @@
     <ClCompile Include="Game\Component\Physics\Gravity.cpp">
       <Filter>Game\Component\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Object\Command\InputHandler.cpp">
-      <Filter>Game\Object\Command\core</Filter>
+    <ClCompile Include="Game\Command\Accel.cpp">
+      <Filter>Game\Command</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Object\Command\Accel.cpp">
-      <Filter>Game\Object\Command</Filter>
+    <ClCompile Include="Game\Command\InputHandler.cpp">
+      <Filter>Game\Command\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Controller\PlayerController.cpp">
+      <Filter>Game\Component\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Physics\Friction.cpp">
+      <Filter>Game\Component\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

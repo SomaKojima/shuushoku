@@ -62,11 +62,11 @@ void CollisionSphere::Render()
 	if (m_obj == nullptr)
 	{
 		// デバッグ用当たり判定モデルの作成
-		m_obj = std::make_unique<DebugSphere>(SubGame::GetInstace().m_game->GetDevice(), m_center, m_radius);
+		m_obj = std::make_unique<DebugSphere>(SubGame::GetInstace().GetGame()->GetDevice(), m_center, m_radius);
 	}
 	else
 	{
-		Game* game = SubGame::GetInstace().m_game;
+		Game* game = SubGame::GetInstace().GetGame();
 		m_obj->Draw(game->GetContext(), *game->GetStates(), world, game->GetView(), game->GetProjection());
 	}
 }
@@ -85,16 +85,16 @@ void CollisionSphere::Finalize()
 void CollisionSphere::HitBack(const Collision::Triangle * triangle, DirectX::SimpleMath::Vector3 & hitPos)
 {
 	// 速度で壁刷りを行う
-	 Vector3 w_vec_vel = WallCulc(triangle, hitPos, m_gameObject->GetTransform().LocalVel());
-	 m_gameObject->GetTransform().LocalVel(w_vec_vel);
+	 Vector3 w_vec_vel = WallCulc(triangle, hitPos, m_gameObject->GetTransform().WorldVel());
+	 m_gameObject->GetTransform().WorldVel(w_vec_vel);
 	// 座標の更新
 	Vector3 pos = m_gameObject->GetTransform().WorldPos();
 	pos += Vector3::Transform(w_vec_vel, m_gameObject->GetTransform().WorldDir());
 	m_gameObject->GetTransform().LocalPos(pos);
 
 	// 加速度を壁刷りを行った速度にする
-	Vector3 w_vec_accel = WallCulc(triangle, hitPos, m_gameObject->GetTransform().LocalAccel());
-	m_gameObject->GetTransform().LocalAccel(w_vec_accel);
+	Vector3 w_vec_accel = WallCulc(triangle, hitPos, m_gameObject->GetTransform().WorldAccel());
+	m_gameObject->GetTransform().WorldAccel(w_vec_accel);
 }
 
 

@@ -47,7 +47,7 @@ void Transform::Update(float elapsedTime)
 }
 
 /// <summary>
-/// 子供のリストに追加する
+/// 子供のマトリクスを更新する
 /// </summary>
 /// <param name="elapsedTime"></param>
 void Transform::UpdateChildMatrix(float elapsedTime)
@@ -63,6 +63,10 @@ void Transform::UpdateChildMatrix(float elapsedTime)
 	}
 }
 
+/// <summary>
+/// 子供の座標の更新
+/// </summary>
+/// <param name="pos"></param>
 void Transform::UpdateChildPos(DirectX::SimpleMath::Vector3 & pos)
 {
 	for (auto ite = m_childList.begin(); ite != m_childList.end(); ite++)
@@ -73,49 +77,64 @@ void Transform::UpdateChildPos(DirectX::SimpleMath::Vector3 & pos)
 	}
 }
 
-void Transform::UpdateChildDir(DirectX::SimpleMath::Vector3 & dir)
+/// <summary>
+/// 子供の向きの更新
+/// </summary>
+/// <param name="dir"></param>
+void Transform::UpdateChildDir(DirectX::SimpleMath::Quaternion & dir)
 {
 	for (auto ite = m_childList.begin(); ite != m_childList.end(); ite++)
 	{
 		// 向きを更新
-		Quaternion q = (*ite)->WorldDir() * dir;
-		(*ite)->WorldDir(q);
+		(*ite)->WorldDir((*ite)->WorldDir() * dir);
 		(*ite)->UpdateChildDir(dir);
 	}
 }
 
 /// <summary>
-/// ローカル座標を取得する
+/// ワールドの向きを設定する
 /// </summary>
-/// <returns>親を基準にローカル座標を取得する：　親がいない場合はワールド座標を返す</returns>
-DirectX::SimpleMath::Vector3 Transform::GetWorldToLocal(DirectX::SimpleMath::Vector3 world, DirectX::SimpleMath::Vector3 parentWorld)
+/// <param name="dir"></param>
+void Transform::WorldDir(DirectX::SimpleMath::Quaternion & dir)
 {
-	if (m_parent)
-	{
-		// 逆回転を取得
-		Quaternion inv = Quaternion::Identity;
-		m_parent->WorldDir().Inverse(inv);
-		// 座標を計算
-		Vector3 vel = world - parentWorld;
-		return Vector3::Transform(vel, inv);
-	}
-	// 親がいない場合
-	return world;
+	Vector3 from = Vector3::Transform(Vector3::Forward, m_worldDir);
+	Vector3 to = Vector3::Transform(Vector3::Forward, dir);
+	Quaternion q = FromToRotation(from, to);
+	UpdateChildDir(q);
+	m_worldDir = dir;
 }
 
 /// <summary>
-/// ローカル座標を取得する
+/// ローカルの座標を取得する(親の座標を原点とした座標を取得)
 /// </summary>
 /// <returns></returns>
-DirectX::SimpleMath::Vector3 Transform::SetLocalToWorld(DirectX::SimpleMath::Vector3 & local)
+DirectX::SimpleMath::Vector3 Transform::LocalPos()
 {
-	if (m_parent)return m_parent->WorldVel() + Vector3::Transform(local, LocalDir());
-	return Vector3::Transform(local, LocalDir());
+	if (m_parent) 
+	{ 
+		return m_worldPos - m_parent->WorldPos();
+	}
+	return m_worldPos;
 }
 
+/// <summary>
+/// ローカルの座標を設定する
+/// </summary>
+/// <param name="pos"></param>
+void Transform::LocalPos(DirectX::SimpleMath::Vector3 & pos)
+{
+	if (m_parent) 
+	{ 
+		m_worldPos = m_parent->WorldPos() + pos;
+	}
+	else 
+	{ 
+		m_worldPos = pos;
+	}
+}
 
 /// <summary>
-/// ローカル座標の向き
+/// ローカル座標の向きを取得する
 /// </summary>
 /// <returns></returns>
 DirectX::SimpleMath::Quaternion Transform::LocalDir()
@@ -132,6 +151,33 @@ DirectX::SimpleMath::Quaternion Transform::LocalDir()
 }
 
 /// <summary>
+/// ローカルの向きを設定する
+/// </summary>
+/// <param name="dir"></param>
+void Transform::LocalDir(DirectX::SimpleMath::Quaternion & dir)
+{
+	Quaternion q = Quaternion::Identity;
+	Vector3 from = Vector3::Transform(Vector3::Forward, m_worldDir);
+	Vector3 to = Vector3::Zero;
+
+	// 自身の向きの更新
+	if (m_parent)
+	{
+		to = Vector3::Transform(Vector3::Forward, m_parent->WorldDir() * dir);
+		m_worldDir = m_parent->WorldDir() * dir;
+	}
+	else
+	{
+		to = Vector3::Transform(Vector3::Forward, dir);
+		m_worldDir = dir;
+	}
+
+	// 子供の向きの更新
+	q = FromToRotation(from, to);
+	UpdateChildDir(q);
+}
+
+/// <summary>
 /// ローカル座標のマトリクス
 /// </summary>
 /// <returns></returns>
@@ -142,4 +188,21 @@ DirectX::SimpleMath::Matrix Transform::LocalMatrix()
 		return Matrix::CreateFromQuaternion(LocalDir()) * Matrix::CreateTranslation(LocalPos());
 	}
 	return m_worldMatrix;
+}
+
+/// <summary>
+/// from から to までの回転を計算する
+/// </summary>
+DirectX::SimpleMath::Quaternion Transform::FromToRotation(DirectX::SimpleMath::Vector3& fromNormalize, DirectX::SimpleMath::Vector3& toNormalize)
+{
+	// 角度を求める
+	float cosine = fromNormalize.Dot(toNormalize);
+	if (cosine > 1.0f) cosine = 1.0f;
+	else if (cosine < -1.0f) cosine = -1.0f;
+	float angle = acos(cosine);
+
+	// 軸を求める
+	Vector3 axis = fromNormalize.Cross(toNormalize);
+
+	return Quaternion::CreateFromAxisAngle(axis, angle);
 }

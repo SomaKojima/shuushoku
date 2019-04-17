@@ -10,7 +10,6 @@ ID3D11Device* ModelData::device = nullptr;
 /// </summary>
 ModelData::ModelData()
 {
-	int a = 0;
 }
 
 /// <summary>

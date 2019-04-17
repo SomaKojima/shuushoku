@@ -33,6 +33,6 @@ void Gravity::Update(float elapsedTime)
 	Vector3 accel = down * g;
 
 	// オブジェクトの加速度に加える
-	accel += m_gameObject->GetTransform().LocalAccel();
-	m_gameObject->GetTransform().LocalAccel(accel);
+	accel += m_gameObject->GetTransform().WorldAccel();
+	m_gameObject->GetTransform().WorldAccel(accel);
 }

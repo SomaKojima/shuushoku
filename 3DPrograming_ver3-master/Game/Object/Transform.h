@@ -20,11 +20,12 @@ public:
 
 
 	// ワールド座標を取得する
-	DirectX::SimpleMath::Vector3 LocalPos() { return GetWorldToLocal(m_worldPos, m_parent->WorldPos()); }
-	void LocalPos(DirectX::SimpleMath::Vector3& pos) { m_worldPos = SetLocalToWorld(pos); }
+	DirectX::SimpleMath::Vector3 LocalPos();
+	void LocalPos(DirectX::SimpleMath::Vector3& pos);
 
 	// ワールド座標の向きを取得する
 	DirectX::SimpleMath::Quaternion LocalDir();
+	void LocalDir(DirectX::SimpleMath::Quaternion& dir);
 
 	// ワールド座標のマトリクスを取得する
 	DirectX::SimpleMath::Matrix LocalMatrix();
@@ -33,7 +34,7 @@ public:
 	// ワールド座標を座標を取得
 	DirectX::SimpleMath::Vector3 WorldPos() { return m_worldPos; }
 	void WorldPos(DirectX::SimpleMath::Vector3& pos) { 
-		UpdateChildPos(m_worldPos - pos);
+		UpdateChildPos(pos - m_worldPos);
 		m_worldPos = pos; 
 	}
 
@@ -47,10 +48,7 @@ public:
 
 	// ワールド向きを取得
 	DirectX::SimpleMath::Quaternion WorldDir() { return m_worldDir; }
-	void WorldDir(DirectX::SimpleMath::Quaternion& dir) { 
-
-		m_worldDir = dir; 
-	}
+	void WorldDir(DirectX::SimpleMath::Quaternion& dir);
 
 	// ワールドマトリクス取得
 	DirectX::SimpleMath::Matrix WorldMatrix() { return m_worldMatrix; }
@@ -67,17 +65,19 @@ public:
 	void AddChild(Transform* transform) { m_childList.push_back(transform); }
 
 private:
-	// 座標・速度・加速度のローカル座標の取得の計算
-	DirectX::SimpleMath::Vector3 GetWorldToLocal(DirectX::SimpleMath::Vector3 world, DirectX::SimpleMath::Vector3 parentWorld);
-	// 座標・速度・加速度のローカル座標の設定の計算
-	DirectX::SimpleMath::Vector3 SetLocalToWorld(DirectX::SimpleMath::Vector3& local);
+	//// 座標・速度・加速度のローカル座標の取得の計算
+	//DirectX::SimpleMath::Vector3 GetWorldToLocal(DirectX::SimpleMath::Vector3 world, DirectX::SimpleMath::Vector3 parentWorld);
+	//// 座標・速度・加速度のローカル座標の設定の計算
+	//DirectX::SimpleMath::Vector3 SetLocalToWorld(DirectX::SimpleMath::Vector3& local);
 
 	// 子の座標を更新する
 	void UpdateChildPos(DirectX::SimpleMath::Vector3& pos);
 	// 子の向きを更新する
-	void UpdateChildDir(DirectX::SimpleMath::Vector3& dir);
+	void UpdateChildDir(DirectX::SimpleMath::Quaternion& dir);
 	// 子供のマトリクスを更新する
 	void UpdateChildMatrix(float elapsedTime);
+
+	DirectX::SimpleMath::Quaternion FromToRotation(DirectX::SimpleMath::Vector3& fromNormalize, DirectX::SimpleMath::Vector3& toNormalize);
 
 private:
 	DirectX::SimpleMath::Vector3 m_worldPos;		// 座標

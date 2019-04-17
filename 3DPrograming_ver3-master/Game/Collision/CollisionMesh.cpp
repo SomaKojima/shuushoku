@@ -74,11 +74,11 @@ void CollisionMesh::Render()
 	if (m_obj == nullptr && m_isFile)
 	{
 		// デバッグ用当たり判定モデルの作成
-		m_obj = std::make_unique<DebugMesh>(SubGame::GetInstace().m_game->GetDevice(), m_file);
+		m_obj = std::make_unique<DebugMesh>(SubGame::GetInstace().GetGame()->GetDevice(), m_file);
 	}
 	else if(m_obj)
 	{
-		Game* game = SubGame::GetInstace().m_game;
+		Game* game = SubGame::GetInstace().GetGame();
 		m_obj->DrawCollision(game->GetContext(), game->GetView(), game->GetProjection());
 	}
 }
