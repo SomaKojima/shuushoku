@@ -288,6 +288,21 @@ inline bool Collision::CheckTwo(const T * shape, CollisionComponent * collision,
 		bool flag = false;
 		for (auto ite = triangleList->begin(); ite != triangleList->end(); ite++)
 		{
+			// ‹…‚ªŽOŠpŒ`‚Ì’†‰›‚É‚ß‚èž‚Þ‚©‚Ç‚¤‚©
+			DirectX::SimpleMath::Vector3 vec = DirectX::SimpleMath::Vector3(-(*ite).plane.a * sphere.radius, -(*ite).plane.b * sphere.radius, -(*ite).plane.c * sphere.radius);
+			segment = Segment{ DirectX::SimpleMath::Vector3(sphere.center), DirectX::SimpleMath::Vector3(vec) };
+			if (HitCheck_Segment_Triangle(segment, (*ite), hit_pos))
+			{
+				triangle = &(*ite);
+				if (HitCheck(*triangle, *shape, &data->hitPos))
+				{
+					if (data) data->triangle = &(*ite);
+					return true;
+				}
+			}
+		}
+		for (auto ite = triangleList->begin(); ite != triangleList->end(); ite++)
+		{
 			triangle = &(*ite);
 			if (HitCheck(*triangle, *shape, &data->hitPos))
 			{
