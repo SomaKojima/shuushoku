@@ -87,3 +87,27 @@ void CollisionMesh::Finalize()
 {
 	m_obj.reset();
 }
+
+bool CollisionMesh::SphereCollision(const Collision::Sphere& sphere, DirectX::SimpleMath::Vector3& hitPos)
+{
+	for (auto ite = m_triangles.begin(); ite != m_triangles.end(); ite++)
+	{
+		if (Collision::HitCheck((*ite), sphere, &hitPos))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool CollisionMesh::TriangleCollision(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos)
+{
+	for (auto ite = m_triangles.begin(); ite != m_triangles.end(); ite++)
+	{
+		if (Collision::HitCheck((*ite), triangle, &hitPos))
+		{
+			return true;
+		}
+	}
+	return false;
+}

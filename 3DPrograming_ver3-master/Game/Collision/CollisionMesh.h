@@ -23,6 +23,11 @@ public:
 	// 終了
 	void Finalize() override;
 
+	// 球との当たり判定
+	bool SphereCollision(const Collision::Sphere& sphere, DirectX::SimpleMath::Vector3& hitPos) override;
+	// メッシュとの当たり判定
+	bool TriangleCollision(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos) override;
+
 	// ポリゴンの情報を取得
 	const std::list<Collision::Triangle>* GetTriangleList() override { return &m_triangles; }
 

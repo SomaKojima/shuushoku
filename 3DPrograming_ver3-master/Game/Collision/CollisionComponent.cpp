@@ -10,21 +10,22 @@ void CollisionComponent::Update(float elapsedTime)
 	isHit = false;
 }
 
-/// <summary>
-/// 衝突処理
-/// </summary>
-/// <param name="obj"></param>
-/// <param name="data"></param>
-void CollisionComponent::OnCollision(GameObject & obj, Collision::CollisionData & data)
+bool CollisionComponent::Collision(CollisionComponent * col, Collision::SHAPE_TYPE type, DirectX::SimpleMath::Vector3& hitPos)
 {
-	// 面と衝突
-	if (data.plane) HitBack(data.plane, data.hitPos);
-	// 線と衝突
-	else if (data.segment) HitBack(data.segment, data.hitPos);
-	// 球と衝突
-	else if (data.sphere) HitBack(data.sphere, data.hitPos);
-	// 三角面（ポリゴン）と衝突
-	else if (data.triangle) HitBack(data.triangle, data.hitPos);
-	// ポリゴンの集まりと衝突
-	else if (data.triangleList.size() > 0);
+	switch (type)
+	{
+		case Collision::SHAPE_TYPE::SPHERE:
+			return SphereCollision(*col->GetSphere(), hitPos);
+			break;
+		case Collision::SHAPE_TYPE::MESH:
+			for (auto ite = col->GetTriangleList()->begin(); ite != col->GetTriangleList()->end(); ite++)
+			{
+				if (TriangleCollision((*ite), hitPos))
+				{
+					return true;
+				}
+			}
+			break;
+	}
+	return false;
 }

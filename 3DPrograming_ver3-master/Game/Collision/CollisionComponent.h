@@ -28,14 +28,13 @@ public:
 	// XV
 	void Update(float elapsedTime) override;
 
-	// Õ“Ëˆ—
-	void OnCollision(GameObject& obj, Collision::CollisionData& data) override;
+	// “–‚½‚è”»’è
+	bool Collision(CollisionComponent* col, Collision::SHAPE_TYPE type, DirectX::SimpleMath::Vector3& hitPos);
 
-	// •Ç‚¸‚è“™‚Ìˆ—
-	virtual void HitBack(const Collision::Triangle* triangle, DirectX::SimpleMath::Vector3& hitPos) {};
-	virtual void HitBack(const Collision::Segment* triangle, DirectX::SimpleMath::Vector3& hitPos) {};
-	virtual void HitBack(const Collision::Sphere* sphere, DirectX::SimpleMath::Vector3& hitPos) {};
-	virtual void HitBack(const Collision::Plane* sphere, DirectX::SimpleMath::Vector3& hitPos) {};
+	// ‹…‚Æ‚Ì“–‚½‚è”»’è
+	virtual bool SphereCollision(const Collision::Sphere& sphere, DirectX::SimpleMath::Vector3& hitPos) = 0;
+	// –Ê‚Æ‚Ì“–‚½‚è”»’è
+	virtual bool TriangleCollision(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos) = 0;
 
 	void SetHit(bool flag) { isHit = flag; }
 	bool IsHit() { return isHit; }
@@ -48,4 +47,5 @@ public:
 
 private:
 	bool isHit;
+	Collision::SHAPE_TYPE m_shapeType;
 };

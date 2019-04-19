@@ -34,6 +34,15 @@ class Collision
 	/// 形状の定義
 	/// </summary>
 public:
+
+	enum SHAPE_TYPE
+	{
+		SHAPE_TYPE_NONE = -1,
+		SPHERE,
+		MESH,
+
+		SHAPE_TYPE_MAX
+	};
 	struct Sphere
 	{
 		DirectX::SimpleMath::Vector3 center;	// 中心座標

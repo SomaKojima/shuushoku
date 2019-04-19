@@ -36,12 +36,18 @@ public:
 	// 終了
 	void Finalize() override;
 
+	// 球との当たり判定
+	bool SphereCollision(const Collision::Sphere& sphere, DirectX::SimpleMath::Vector3& hitPos) override;
+	// メッシュとの当たり判定
+	bool TriangleCollision(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos) override;
 
-	void HitBack(const Collision::Triangle* triangle, DirectX::SimpleMath::Vector3& hitPos) override;
+	// 壁刷り
+	void HitBack(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos) override;
 
 	// 壁刷りの計算
-	DirectX::SimpleMath::Vector3& WallCulc(const Collision::Triangle* triangle, DirectX::SimpleMath::Vector3& hitPos, DirectX::SimpleMath::Vector3 vel);
+	DirectX::SimpleMath::Vector3& WallCulc(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos, DirectX::SimpleMath::Vector3 vel);
 
+	// プロパティ
 	DirectX::SimpleMath::Vector3 GetCenter() { return m_center; }
 	float GetRadius() { return m_radius; }
 

@@ -80,9 +80,29 @@ void CollisionSphere::Finalize()
 	m_obj.reset();
 }
 
+bool CollisionSphere::SphereCollision(const Collision::Sphere & sphere, DirectX::SimpleMath::Vector3& hitPos)
+{
+	if (Collision::HitCheck(m_sphere, sphere, &hitPos))
+	{
+		return true;
+	}
+	return false;
+}
+
+bool CollisionSphere::TriangleCollision(const Collision::Triangle & triangle, DirectX::SimpleMath::Vector3& hitPos)
+{
+	if (Collision::HitCheck(m_sphere, triangle, &hitPos))
+	{
+		// 壁刷り
+		HitBack(triangle, hitPos);
+		return true;
+	}
+	return false;
+}
 
 
-void CollisionSphere::HitBack(const Collision::Triangle * triangle, DirectX::SimpleMath::Vector3 & hitPos)
+
+void CollisionSphere::HitBack(const Collision::Triangle & triangle, DirectX::SimpleMath::Vector3 & hitPos)
 {
 	// 速度で壁刷りを行う
 	 Vector3 w_vec_vel = WallCulc(triangle, hitPos, m_gameObject->GetTransform().WorldVel());
@@ -91,7 +111,7 @@ void CollisionSphere::HitBack(const Collision::Triangle * triangle, DirectX::Sim
 	Vector3 pos = m_gameObject->GetTransform().WorldPos();
 
 	Vector3 vec = pos - hitPos;
-	vec = Vector3(triangle->plane.a, triangle->plane.b, triangle->plane.c);
+	vec = Vector3(triangle.plane.a, triangle.plane.b, triangle.plane.c);
 	vec.Normalize();
 	pos = hitPos + vec * m_radius;
 
@@ -111,13 +131,13 @@ void CollisionSphere::HitBack(const Collision::Triangle * triangle, DirectX::Sim
 /// <param name="hitPos"></param>
 /// <param name="vel"></param>
 /// <returns></returns>
-Vector3& CollisionSphere::WallCulc(const Collision::Triangle * triangle, Vector3 & hitPos, SimpleMath::Vector3 vel)
+Vector3& CollisionSphere::WallCulc(const Collision::Triangle& triangle, Vector3 & hitPos, SimpleMath::Vector3 vel)
 {
 	// 速度を取得
 	Vector3 vec = vel;
 
 	// 面の法線
-	Vector3 normal(triangle->plane.a, triangle->plane.b, triangle->plane.c);
+	Vector3 normal(triangle.plane.a, triangle.plane.b, triangle.plane.c);
 
 	// 法線の向きのベクトルをなくす(プレイヤーの向きに合わせる・ローカル座標にする)
 	Quaternion q;

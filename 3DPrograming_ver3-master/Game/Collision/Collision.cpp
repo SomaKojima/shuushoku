@@ -290,7 +290,6 @@ bool Collision::HitCheck(GameObject * entity, GameObject* entity2, CollisionData
 	{
 		for (auto ite2 = collisionList2.begin(); ite2 != collisionList2.end(); ite2++)
 		{
-			// ‹…
 			if (CheckOne((*ite), (*ite2), data, data2))
 			{
 				// “–‚½‚Á‚½

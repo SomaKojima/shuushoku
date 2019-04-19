@@ -30,7 +30,7 @@ public:
 	virtual void Finalize() {};
 
 	// 当たり判定の処理
-	virtual void OnCollision(GameObject& obj, Collision::CollisionData& data) {}
+	virtual void OnCollision(GameObject& obj, DirectX::SimpleMath::Vector3& hitPos) {}
 
 	// オブジェクトを設定する
 	void SetGameObject(GameObject* obj) { m_gameObject = obj; }
