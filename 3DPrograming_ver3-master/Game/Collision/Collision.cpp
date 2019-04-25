@@ -228,55 +228,12 @@ bool Collision::HitCheck_Sphere_Triangle(const Sphere & sphere, const Triangle &
 }
 
 /// <summary>
-/// 当たり判定の形を判断して当たり判定を行う関数
-/// </summary>
-/// <param name="collision">当たり判定の形１</param>
-/// <param name="collision2">当たり判定の形２</param>
-/// <param name="data">当たり判定の形２を１のオブジェクトに渡す用のバッファ</param>
-/// <param name="data2">当たり判定の形１を２のオブジェクトに渡す用のバッファ</param>
-/// <returns>当たり判定</returns>
-bool Collision::CheckOne(CollisionComponent* collision, CollisionComponent* collision2, CollisionData* data, CollisionData* data2)
-{
-	const Sphere* sphere = collision->GetSphere();
-	const Plane* plane = collision->GetPlane();
-	const Triangle* triangle = collision->GetTriangle();
-	const list<Triangle>* triangleList = collision->GetTriangleList();
-
-	if (data2)
-	{
-		data2->sphere = sphere;
-		data2->plane = plane;
-		data2->triangle = triangle;
-	}
-
-	if (sphere)		return CheckTwo(sphere, collision2, data);
-	if (plane)		return CheckTwo(plane, collision2, data);
-	if (triangle)	return CheckTwo(triangle, collision2, data);
-
-	if (triangleList)
-	{
-		bool flag = false;
-		for (auto ite = triangleList->begin(); ite != triangleList->end(); ite++)
-		{
-			if (CheckTwo(&(*ite), collision2, data))
-			{
-				if (data2) data2->triangleList.push_back(&(*ite));
-				flag = true;
-			}
-		}
-		return flag;
-	}
-
-	return false;
-}
-
-/// <summary>
 /// 当たり判定を求める
 /// </summary>
 /// <param name="entity">実体</param>
 /// <param name="repulsionVel">反発速度</param>
 /// <returns>当たり判定</returns>
-bool Collision::HitCheck(GameObject * entity, GameObject* entity2, CollisionData *data, CollisionData* data2)
+bool Collision::HitCheck(GameObject * entity, GameObject* entity2)
 {
 	if(!entity || !entity2)
 	{
@@ -286,18 +243,19 @@ bool Collision::HitCheck(GameObject * entity, GameObject* entity2, CollisionData
 	list<CollisionComponent*> collisionList1 = entity->GetComponentList<CollisionComponent>();
 	list<CollisionComponent*> collisionList2 = entity2->GetComponentList<CollisionComponent>();
 
+	Vector3 hitPos = Vector3::Zero;
 	for (auto ite = collisionList1.begin(); ite != collisionList1.end(); ite++)
 	{
 		for (auto ite2 = collisionList2.begin(); ite2 != collisionList2.end(); ite2++)
 		{
-			if (CheckOne((*ite), (*ite2), data, data2))
+			if ((*ite)->Collision((*ite2), hitPos))
 			{
 				// 当たった
 				(*ite)->SetHit(true);
 				(*ite2)->SetHit(true);
-
-				// 当たった場所のデータを共有
-				data2->hitPos = data->hitPos;
+				// 衝突判定
+				(*ite)->GetGameObject()->OnCollision(*(*ite2)->GetGameObject(), (*ite2), hitPos);
+				(*ite2)->GetGameObject()->OnCollision(*(*ite)->GetGameObject(), (*ite), hitPos);
 				return true;
 			}
 		}

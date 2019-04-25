@@ -26,18 +26,18 @@ public:
 	~CollisionComponent() {};
 
 	// XV
-	void Update(float elapsedTime) override;
+	virtual void Update(float elapsedTime) override;
 
 	// “–‚½‚è”»’è
-	bool Collision(CollisionComponent* col, Collision::SHAPE_TYPE type, DirectX::SimpleMath::Vector3& hitPos);
-
-	// ‹…‚Æ‚Ì“–‚½‚è”»’è
+	bool Collision(CollisionComponent* col, DirectX::SimpleMath::Vector3& hitPos);
 	virtual bool SphereCollision(const Collision::Sphere& sphere, DirectX::SimpleMath::Vector3& hitPos) = 0;
-	// –Ê‚Æ‚Ì“–‚½‚è”»’è
 	virtual bool TriangleCollision(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos) = 0;
+
 
 	void SetHit(bool flag) { isHit = flag; }
 	bool IsHit() { return isHit; }
+
+	Collision::SHAPE_TYPE GetShape() { return m_shapeType; }
 
 	virtual const Collision::Sphere* GetSphere() { return nullptr; }
 	virtual const Collision::Segment* GetSegment() { return nullptr; }

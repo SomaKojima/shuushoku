@@ -8,6 +8,7 @@
 
 class Component;
 class OBJECT_FOR_TREE;
+class CollisionComponent;
 
 /// <summary>
 /// ゲームオブジェクトのクラス
@@ -34,7 +35,7 @@ public:
 	// 終了処理
 	void Finalize();
 	// 衝突処理
-	void OnCollision(GameObject& obj, Collision::CollisionData &data);
+	void OnCollision(GameObject& obj, CollisionComponent* col, DirectX::SimpleMath::Vector3 &hitPos);
 
 public:
 	// 子供のリストに追加する

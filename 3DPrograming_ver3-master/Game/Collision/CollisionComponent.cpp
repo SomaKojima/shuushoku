@@ -10,14 +10,14 @@ void CollisionComponent::Update(float elapsedTime)
 	isHit = false;
 }
 
-bool CollisionComponent::Collision(CollisionComponent * col, Collision::SHAPE_TYPE type, DirectX::SimpleMath::Vector3& hitPos)
+bool CollisionComponent::Collision(CollisionComponent * col, DirectX::SimpleMath::Vector3& hitPos)
 {
-	switch (type)
+	switch (col->GetShape())
 	{
-		case Collision::SHAPE_TYPE::SPHERE:
+	case Collision::SHAPE_TYPE::SHAPE_TYPE_SPHERE:
 			return SphereCollision(*col->GetSphere(), hitPos);
 			break;
-		case Collision::SHAPE_TYPE::MESH:
+	case Collision::SHAPE_TYPE::SHAPE_TYPE_MESH:
 			for (auto ite = col->GetTriangleList()->begin(); ite != col->GetTriangleList()->end(); ite++)
 			{
 				if (TriangleCollision((*ite), hitPos))

@@ -1,6 +1,7 @@
 #include "../../pch.h"
 #include "GameObject.h"
 #include "../Component/Component.h"
+#include "../Collision/CollisionComponent.h"
 #include "../Collision/CCell.h"
 
 using namespace std;
@@ -98,11 +99,12 @@ void GameObject::Finalize()
 /// </summary>
 /// <param name="obj"></param>
 /// <param name="data"></param>
-void GameObject::OnCollision(GameObject& obj, Collision::CollisionData &data)
+void GameObject::OnCollision(GameObject& obj, CollisionComponent* col, DirectX::SimpleMath::Vector3 &hitPos)
 {
 	for (auto ite = m_componentList.begin(); ite != m_componentList.end(); ite++)
 	{
-		(*ite)->OnCollision(obj, data);
+		(*ite)->OnShapeCollision(obj, col, hitPos);
+		(*ite)->OnCollision(obj, hitPos);
 	}
 }
 

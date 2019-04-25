@@ -42,7 +42,7 @@ public:
 	bool TriangleCollision(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos) override;
 
 	// ï«ç¸ÇË
-	void HitBack(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos) override;
+	void HitBack(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos);
 
 	// ï«ç¸ÇËÇÃåvéZ
 	DirectX::SimpleMath::Vector3& WallCulc(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos, DirectX::SimpleMath::Vector3 vel);

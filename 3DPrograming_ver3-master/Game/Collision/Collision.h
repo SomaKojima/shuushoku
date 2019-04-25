@@ -38,8 +38,8 @@ public:
 	enum SHAPE_TYPE
 	{
 		SHAPE_TYPE_NONE = -1,
-		SPHERE,
-		MESH,
+		SHAPE_TYPE_SPHERE,
+		SHAPE_TYPE_MESH,
 
 		SHAPE_TYPE_MAX
 	};
@@ -256,69 +256,7 @@ public:
 	Collision();
 	~Collision();
 	
-private:
-	static bool CheckOne(CollisionComponent* collision, CollisionComponent* collision2, CollisionData* data, CollisionData* data2);
-	template<class T>
-	static bool CheckTwo(const T* shape, CollisionComponent* collision, CollisionData* data);
-
 public:
-	static bool HitCheck(GameObject* entity, GameObject* entity2, CollisionData* data, CollisionData* data2);
+	static bool HitCheck(GameObject* entity, GameObject* entity2);
 };
 
-
-/// <summary>
-/// 当たり判定の形を判断して当たり判定を行う関数
-/// </summary>
-/// <param name="shape">当たり判定の形１</param>
-/// <param name="collision2">当たり判定の形２</param>
-/// <param name="data">当たり判定の形２を１のオブジェクトに渡す用のバッファ</param>
-/// <returns>当たり判定</returns>
-template<class T>
-inline bool Collision::CheckTwo(const T * shape, CollisionComponent * collision, CollisionData* data)
-{
-	const Sphere* sphere = collision->GetSphere();
-	const Plane* plane = collision->GetPlane();
-	const Triangle* triangle = collision->GetTriangle();
-	const list<Triangle>* triangleList = collision->GetTriangleList();
-
-	if (data)
-	{
-		data->sphere = sphere;
-		data->plane = plane;
-		data->triangle = triangle;
-	}
-
-	if (sphere) return HitCheck(*sphere, *shape, &data->hitPos);
-	if (plane)return HitCheck(*plane, *shape, &data->hitPos);
-	if (triangle)return HitCheck(*triangle, *shape, &data->hitPos);
-
-	if (triangleList)
-	{
-		bool flag = false;
-		for (auto ite = triangleList->begin(); ite != triangleList->end(); ite++)
-		{
-			// 球が三角形の中央にめり込むかどうか
-			DirectX::SimpleMath::Vector3 vec = DirectX::SimpleMath::Vector3(-(*ite).plane.a * sphere.radius, -(*ite).plane.b * sphere.radius, -(*ite).plane.c * sphere.radius);
-			segment = Segment{ DirectX::SimpleMath::Vector3(sphere.center), DirectX::SimpleMath::Vector3(vec) };
-			if (HitCheck_Segment_Triangle(segment, (*ite), hit_pos))
-			{
-				triangle = &(*ite);
-				if (HitCheck(*triangle, *shape, &data->hitPos))
-				{
-					if (data) data->triangle = &(*ite);
-					return true;
-				}
-			}
-		}
-		for (auto ite = triangleList->begin(); ite != triangleList->end(); ite++)
-		{
-			triangle = &(*ite);
-			if (HitCheck(*triangle, *shape, &data->hitPos))
-			{
-				if (data) data->triangle = &(*ite);
-				return true;
-			}
-		}
-	}
-	return false;
-}

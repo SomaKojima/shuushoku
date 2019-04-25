@@ -189,8 +189,6 @@ void CLiner8TreeManager::HitCheckRoom(CCell* room, int elem, std::vector<Bidirec
 	BidirectionalList<OBJECT_FOR_TREE>* pOFT = room->GetTop();
 	BidirectionalList<OBJECT_FOR_TREE>* pNextOFT = nullptr;
 
-	Collision::CollisionData data;
-	Collision::CollisionData data2;
 	while (pOFT)
 	{
 		// スタック内のオブジェクトと当たり判定を取る
@@ -201,11 +199,8 @@ void CLiner8TreeManager::HitCheckRoom(CCell* room, int elem, std::vector<Bidirec
 			{
 				continue;
 			}
-			if (Collision::HitCheck(&pOFT->GetObj().GetGameObject(), &(*ite)->GetObj().GetGameObject(), &data, &data2))
-			{
-				pOFT->GetObj().GetGameObject().OnCollision((*ite)->GetObj().GetGameObject(), data);
-				(*ite)->GetObj().GetGameObject().OnCollision(pOFT->GetObj().GetGameObject(), data2);
-			}
+			// 当たり判定の処理
+			Collision::HitCheck(&pOFT->GetObj().GetGameObject(), &(*ite)->GetObj().GetGameObject());
 		}
 		// 同じ空間内のオブジェクトと当たり判定を取る
 		pNextOFT = pOFT->GetNext();
@@ -218,11 +213,10 @@ void CLiner8TreeManager::HitCheckRoom(CCell* room, int elem, std::vector<Bidirec
 				pNextOFT = pNextOFT->GetNext();
 				continue;
 			}
-			if (Collision::HitCheck(&pOFT->GetObj().GetGameObject(), &pNextOFT->GetObj().GetGameObject(), &data, &data2))
-			{
-				pOFT->GetObj().GetGameObject().OnCollision(pNextOFT->GetObj().GetGameObject(), data);
-				pNextOFT->GetObj().GetGameObject().OnCollision(pOFT->GetObj().GetGameObject(), data2);
-			}
+
+			// 当たり判定の処理
+			Collision::HitCheck(&pOFT->GetObj().GetGameObject(), &pNextOFT->GetObj().GetGameObject());
+
 			pNextOFT = pNextOFT->GetNext();
 		}
 		pOFT = pOFT->GetNext();
