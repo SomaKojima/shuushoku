@@ -250,12 +250,6 @@ bool Collision::HitCheck(GameObject * entity, GameObject* entity2)
 		{
 			if ((*ite)->Collision((*ite2), hitPos))
 			{
-				// “–‚½‚Á‚½
-				(*ite)->SetHit(true);
-				(*ite2)->SetHit(true);
-				// Õ“Ë”»’è
-				(*ite)->GetGameObject()->OnCollision(*(*ite2)->GetGameObject(), (*ite2), hitPos);
-				(*ite2)->GetGameObject()->OnCollision(*(*ite)->GetGameObject(), (*ite), hitPos);
 				return true;
 			}
 		}

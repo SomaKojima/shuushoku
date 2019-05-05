@@ -9,6 +9,7 @@ using namespace DirectX::SimpleMath;
 
 CollisionMesh::CollisionMesh(wchar_t * file)
 	:
+	CollisionComponent(Collision::SHAPE_TYPE::SHAPE_TYPE_MESH),
 	m_file(file),
 	m_isFile(false)
 {

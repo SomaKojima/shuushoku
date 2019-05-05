@@ -12,20 +12,50 @@ void CollisionComponent::Update(float elapsedTime)
 
 bool CollisionComponent::Collision(CollisionComponent * col, DirectX::SimpleMath::Vector3& hitPos)
 {
+	bool isHit = false;
+
+	// Õ“Ë‚µ‚½‚©”»’è‚·‚é(Õ“Ë‚µ‚½ê‡‚»‚ê‚¼‚ê‚ÌÕ“Ëˆ—‚à‚·‚é)
 	switch (col->GetShape())
 	{
+		// ‹…
 	case Collision::SHAPE_TYPE::SHAPE_TYPE_SPHERE:
-			return SphereCollision(*col->GetSphere(), hitPos);
-			break;
-	case Collision::SHAPE_TYPE::SHAPE_TYPE_MESH:
-			for (auto ite = col->GetTriangleList()->begin(); ite != col->GetTriangleList()->end(); ite++)
+		if (SphereCollision(*col->GetSphere(), hitPos))
+		{
+			isHit = true;
+			for (auto ite = m_gameObject->GetComponentList().begin(); ite != m_gameObject->GetComponentList().end(); ite++)
 			{
-				if (TriangleCollision((*ite), hitPos))
-				{
-					return true;
-				}
+				OnSphereCollision(*col->GetGameObject(), *col->GetSphere(), hitPos);
 			}
-			break;
+		}
+		break;
+
+		// ƒƒbƒVƒ…
+	case Collision::SHAPE_TYPE::SHAPE_TYPE_MESH:
+		for (auto ite = col->GetTriangleList()->begin(); ite != col->GetTriangleList()->end(); ite++)
+		{
+			if (TriangleCollision((*ite), hitPos))
+			{
+				isHit = true;
+				for (auto ite2 = m_gameObject->GetComponentList().begin(); ite2 != m_gameObject->GetComponentList().end(); ite2++)
+				{
+					OnTriangleCollision(*col->GetGameObject(), (*ite), hitPos);
+				}
+				break;
+			}
+		}
+		break;
 	}
-	return false;
+
+	// Õ“Ë‚µ‚½‚Æ‚«‚Ìˆ—
+	if (isHit)
+	{
+		// “–‚½‚Á‚½
+		this->SetHit(true);
+		col->SetHit(true);
+		// Õ“Ë”»’è
+		this->GetGameObject()->OnCollision(*col->GetGameObject(), col, hitPos);
+		col->GetGameObject()->OnCollision(*col->GetGameObject(), this, hitPos);
+	}
+
+	return isHit;
 }

@@ -22,7 +22,7 @@
 class CollisionComponent : public Component
 {
 public:
-	CollisionComponent() :isHit(false) {};
+	CollisionComponent(Collision::SHAPE_TYPE type) :isHit(false), m_shapeType(type) {};
 	~CollisionComponent() {};
 
 	// çXêV

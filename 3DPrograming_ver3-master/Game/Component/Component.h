@@ -31,12 +31,11 @@ public:
 	// I—¹
 	virtual void Finalize() {}
 
-	bool OnShapeCollision(GameObject& obj, CollisionComponent* col, DirectX::SimpleMath::Vector3& hitPos);
-
 	// ‹…‚Æ‚Ì“–‚½‚è”»’è
-	virtual bool OnSphereCollision(GameObject& obj, const Collision::Sphere& sphere, DirectX::SimpleMath::Vector3& hitPos) { return false; }
+	virtual void OnSphereCollision(GameObject& obj, const Collision::Sphere& sphere, DirectX::SimpleMath::Vector3& hitPos) {}
 	// –Ê‚Æ‚Ì“–‚½‚è”»’è
-	virtual bool OnTriangleCollision(GameObject& obj, const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos) { return false; }
+	virtual void OnTriangleCollision(GameObject& obj, const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos) {}
+
 
 	// “–‚½‚è”»’è‚Ìˆ—
 	virtual void OnCollision(GameObject& obj, DirectX::SimpleMath::Vector3& hitPos) {}

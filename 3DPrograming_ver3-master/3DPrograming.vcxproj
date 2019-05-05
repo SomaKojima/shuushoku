@@ -224,7 +224,6 @@
     <ClCompile Include="Game\Collision\DebugCollision\DebugSphere.cpp" />
     <ClCompile Include="Game\Command\Accel.cpp" />
     <ClCompile Include="Game\Command\InputHandler.cpp" />
-    <ClCompile Include="Game\Component\Component.cpp" />
     <ClCompile Include="Game\Component\Controller\PlayerController.cpp" />
     <ClCompile Include="Game\Component\Physics\Friction.cpp" />
     <ClCompile Include="Game\Component\Physics\Gravity.cpp" />

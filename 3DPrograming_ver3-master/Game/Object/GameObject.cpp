@@ -50,14 +50,14 @@ void GameObject::Initialize()
 /// <param name="elapsedTime"></param>
 void GameObject::Update(float elapsedTime)
 {
+	// 変形の更新
+	m_transform.Update(elapsedTime);
 	// コンポーネントの更新
 	for (auto ite = m_componentList.begin(); ite != m_componentList.end(); ite++)
 	{
 		(*ite)->Update(elapsedTime);
 		(*ite)->LateUpdate(elapsedTime);
 	}
-	// 変形の更新
-	m_transform.Update(elapsedTime);
 
 	// 初期空間登録
 	CLiner8TreeManager& cLiner8TreeManager = CLiner8TreeManager::GetInstace();
@@ -103,7 +103,6 @@ void GameObject::OnCollision(GameObject& obj, CollisionComponent* col, DirectX::
 {
 	for (auto ite = m_componentList.begin(); ite != m_componentList.end(); ite++)
 	{
-		(*ite)->OnShapeCollision(obj, col, hitPos);
 		(*ite)->OnCollision(obj, hitPos);
 	}
 }

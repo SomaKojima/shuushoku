@@ -285,9 +285,6 @@
     <ClCompile Include="Game\Component\Physics\Friction.cpp">
       <Filter>Game\Component\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\Component.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

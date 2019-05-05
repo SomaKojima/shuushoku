@@ -26,6 +26,7 @@ using namespace DirectX::SimpleMath;
 /// <param name="radius">半径</param>
 CollisionSphere::CollisionSphere(DirectX::SimpleMath::Vector3 center, float radius)
 	:
+	CollisionComponent(Collision::SHAPE_TYPE::SHAPE_TYPE_SPHERE),
 	m_center(center),
 	m_radius(radius),
 	m_obj(nullptr)
@@ -80,6 +81,12 @@ void CollisionSphere::Finalize()
 	m_obj.reset();
 }
 
+void CollisionSphere::OnTriangleCollision(GameObject & obj, const Collision::Triangle & triangle, DirectX::SimpleMath::Vector3 & hitPos)
+{
+	// 壁刷り
+	HitBack(triangle, hitPos);
+}
+
 bool CollisionSphere::SphereCollision(const Collision::Sphere & sphere, DirectX::SimpleMath::Vector3& hitPos)
 {
 	if (Collision::HitCheck(m_sphere, sphere, &hitPos))
@@ -93,8 +100,6 @@ bool CollisionSphere::TriangleCollision(const Collision::Triangle & triangle, Di
 {
 	if (Collision::HitCheck(m_sphere, triangle, &hitPos))
 	{
-		// 壁刷り
-		HitBack(triangle, hitPos);
 		return true;
 	}
 	return false;
@@ -107,16 +112,17 @@ void CollisionSphere::HitBack(const Collision::Triangle & triangle, DirectX::Sim
 	// 速度で壁刷りを行う
 	 Vector3 w_vec_vel = WallCulc(triangle, hitPos, m_gameObject->GetTransform().WorldVel());
 	 m_gameObject->GetTransform().WorldVel(w_vec_vel);
+
+
 	// 座標の更新
-	Vector3 pos = m_gameObject->GetTransform().WorldPos();
-
-	Vector3 vec = pos - hitPos;
-	vec = Vector3(triangle.plane.a, triangle.plane.b, triangle.plane.c);
-	vec.Normalize();
-	pos = hitPos + vec * m_radius;
-
-	//pos += w_vec_vel;
-	m_gameObject->GetTransform().WorldPos(pos);
+	//Vector3 pos = m_gameObject->GetTransform().WorldPos();
+	//Vector3 vec = pos - hitPos;
+	//vec.Normalize();
+	////vec = Vector3(triangle.plane.a, triangle.plane.b, triangle.plane.c);
+	//Vector3 _hit_pos = hitPos;
+	////Collision::HitCheck_Sphere_Plane(m_sphere, triangle.plane, &_hit_pos);
+	//pos = pos + vec * m_radius;
+	//m_gameObject->GetTransform().WorldPos(pos);
 
 	// 加速度を壁刷りを行った速度にする
 	Vector3 w_vec_accel = WallCulc(triangle, hitPos, m_gameObject->GetTransform().WorldAccel());
@@ -139,25 +145,10 @@ Vector3& CollisionSphere::WallCulc(const Collision::Triangle& triangle, Vector3 
 	// 面の法線
 	Vector3 normal(triangle.plane.a, triangle.plane.b, triangle.plane.c);
 
-	// 法線の向きのベクトルをなくす(プレイヤーの向きに合わせる・ローカル座標にする)
-	Quaternion q;
-	m_gameObject->GetTransform().WorldDir().Conjugate(q);
-
-	// 壁ずり
-	Vector3 normal2 = Vector3::Transform(normal, q);
-
-	float l = vec.Dot(normal2);
-	Vector3 w_vec;
-	if (l <= 0)
-	{
-		w_vec = vec - l * normal2;
-	}
-	else
-	{
-		w_vec = vec;
-	}
+	float l = vec.Dot(normal);
+	Vector3 w_vec = vec - l * normal;
 
 	// 元の向きに合わせる
-	return Vector3::Transform(w_vec, m_gameObject->GetTransform().WorldDir());
+	return w_vec;
 }
 

@@ -46,6 +46,7 @@ public:
 	/// <summary>
 	/// コンポーネントを取得する関数
 	/// </summary>
+	std::list<Component*>& GetComponentList() { return m_componentList; }
 	template<class T>
 	inline T* GetComponent();
 	template<class T>

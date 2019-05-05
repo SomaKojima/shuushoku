@@ -36,6 +36,8 @@ public:
 	// I—¹
 	void Finalize() override;
 
+	void OnTriangleCollision(GameObject& obj, const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos);
+
 	// ‹…‚Æ‚Ì“–‚½‚è”»’è
 	bool SphereCollision(const Collision::Sphere& sphere, DirectX::SimpleMath::Vector3& hitPos) override;
 	// ƒƒbƒVƒ…‚Æ‚Ì“–‚½‚è”»’è
