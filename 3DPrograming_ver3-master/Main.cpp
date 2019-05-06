@@ -239,6 +239,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case VK_ESCAPE:
+			PostQuitMessage(0);
+			break;
+		}
 	case WM_KEYUP:
 	case WM_SYSKEYUP:
 		Keyboard::ProcessMessage(message, wParam, lParam);
@@ -281,6 +287,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         // A menu is active and the user presses a key that does not correspond
         // to any mnemonic or accelerator key. Ignore so we don't produce an error beep.
         return MAKELRESULT(0, MNC_CLOSE);
+
+	case WM_ACTIVATE:
+		switch (wParam)
+		{
+		case WA_INACTIVE:	// 非アクティブの状態
+
+			break;
+		case WA_ACTIVE:		// マウスクリック意外のアクティブ化
+		case WA_CLICKACTIVE:// マウスクリックでのアクティブ化
+
+			break;
+		}
+		break;
     }
 
     return DefWindowProc(hWnd, message, wParam, lParam);

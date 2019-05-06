@@ -18,16 +18,23 @@ public:
 	void Update(float elapsedTime);
 
 
-
-	// ワールド座標を取得する
+	// ローカル座標を取得する
 	DirectX::SimpleMath::Vector3 LocalPos();
-	void LocalPos(DirectX::SimpleMath::Vector3& pos);
+	void LocalPos(DirectX::SimpleMath::Vector3& localPos);
 
-	// ワールド座標の向きを取得する
+	// ローカル座標の速度を取得
+	DirectX::SimpleMath::Vector3 LocalVel();
+	void LocalVel(DirectX::SimpleMath::Vector3& localVel);
+
+	// ローカル座標の加速度を取得する
+	DirectX::SimpleMath::Vector3 LocalAccel();
+	void LocalAccel(DirectX::SimpleMath::Vector3& localAccel);
+
+	// ローカル座標の向きを取得する
 	DirectX::SimpleMath::Quaternion LocalDir();
-	void LocalDir(DirectX::SimpleMath::Quaternion& dir);
+	void LocalDir(DirectX::SimpleMath::Quaternion& localDir);
 
-	// ワールド座標のマトリクスを取得する
+	// ローカル座標のマトリクスを取得する
 	DirectX::SimpleMath::Matrix LocalMatrix();
 
 

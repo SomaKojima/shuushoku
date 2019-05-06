@@ -121,16 +121,56 @@ DirectX::SimpleMath::Vector3 Transform::LocalPos()
 /// ローカルの座標を設定する
 /// </summary>
 /// <param name="pos"></param>
-void Transform::LocalPos(DirectX::SimpleMath::Vector3 & pos)
+void Transform::LocalPos(DirectX::SimpleMath::Vector3 & localPos)
 {
 	if (m_parent) 
 	{ 
-		m_worldPos = m_parent->WorldPos() + pos;
+		m_worldPos = m_parent->WorldPos() + localPos;
 	}
 	else 
 	{ 
-		m_worldPos = pos;
+		m_worldPos = localPos;
 	}
+}
+
+/// <summary>
+/// ローカル座標の速度を取得する
+/// </summary>
+/// <returns></returns>
+DirectX::SimpleMath::Vector3 Transform::LocalVel()
+{
+	Quaternion inv = Quaternion::Identity;
+	m_worldDir.Inverse(inv);
+	return Vector3::Transform(m_worldVel, inv);
+}
+
+/// <summary>
+/// ローカル座標の速度を設定する
+/// </summary>
+/// <returns></returns>
+void Transform::LocalVel(DirectX::SimpleMath::Vector3 & localVel)
+{
+	m_worldVel = Vector3::Transform(localVel, m_worldDir);
+}
+
+/// <summary>
+/// ローカル座標の加速度を取得する
+/// </summary>
+/// <returns></returns>
+DirectX::SimpleMath::Vector3 Transform::LocalAccel()
+{
+	Quaternion inv = Quaternion::Identity;
+	m_worldDir.Inverse(inv);
+	return Vector3::Transform(m_worldAccel, inv);
+}
+
+/// <summary>
+/// ローカル座標の加速度を設定する
+/// </summary>
+/// <returns></returns>
+void Transform::LocalAccel(DirectX::SimpleMath::Vector3 & localAccel)
+{
+	m_worldAccel = Vector3::Transform(localAccel, m_worldDir);
 }
 
 /// <summary>
@@ -154,7 +194,7 @@ DirectX::SimpleMath::Quaternion Transform::LocalDir()
 /// ローカルの向きを設定する
 /// </summary>
 /// <param name="dir"></param>
-void Transform::LocalDir(DirectX::SimpleMath::Quaternion & dir)
+void Transform::LocalDir(DirectX::SimpleMath::Quaternion & localDir)
 {
 	Quaternion q = Quaternion::Identity;
 	Vector3 from = Vector3::Transform(Vector3::Forward, m_worldDir);
@@ -163,13 +203,13 @@ void Transform::LocalDir(DirectX::SimpleMath::Quaternion & dir)
 	// 自身の向きの更新
 	if (m_parent)
 	{
-		to = Vector3::Transform(Vector3::Forward, m_parent->WorldDir() * dir);
-		m_worldDir = m_parent->WorldDir() * dir;
+		to = Vector3::Transform(Vector3::Forward, m_parent->WorldDir() * localDir);
+		m_worldDir = m_parent->WorldDir() * localDir;
 	}
 	else
 	{
-		to = Vector3::Transform(Vector3::Forward, dir);
-		m_worldDir = dir;
+		to = Vector3::Transform(Vector3::Forward, localDir);
+		m_worldDir = localDir;
 	}
 
 	// 子供の向きの更新
@@ -199,10 +239,44 @@ DirectX::SimpleMath::Quaternion Transform::FromToRotation(DirectX::SimpleMath::V
 	float cosine = fromNormalize.Dot(toNormalize);
 	if (cosine > 1.0f) cosine = 1.0f;
 	else if (cosine < -1.0f) cosine = -1.0f;
+
 	float angle = acos(cosine);
 
 	// 軸を求める
 	Vector3 axis = fromNormalize.Cross(toNormalize);
+	if (axis == Vector3::Zero)
+	{
+		float cosineOrigin = Vector3::Forward.Dot(fromNormalize);
+		if (cosineOrigin > 1.0f) cosineOrigin = 1.0f;
+		else if (cosineOrigin < -1.0f) cosineOrigin = -1.0f;
+		float angleOrigin = acos(cosineOrigin);
 
-	return Quaternion::CreateFromAxisAngle(axis, angle);
+		Vector3 axisOrigin = Vector3::Forward.Cross(fromNormalize);
+
+		if (axisOrigin == Vector3::Zero)
+		{
+			if (cosineOrigin == -1.0f)
+			{
+				return Quaternion::CreateFromAxisAngle(Vector3::Up, XMConvertToRadians(180.0f));
+			}
+			else
+			{
+				Quaternion::Identity;
+			}
+		}
+		Quaternion qOrigine = Quaternion::CreateFromAxisAngle(axisOrigin, angleOrigin);
+
+		if (cosine == -1.0f)
+		{
+			axis = fromNormalize.Cross(Vector3::Transform(Vector3::Right, qOrigine));
+		}
+		else
+		{
+			return qOrigine;
+		}
+	}
+
+	Quaternion q = Quaternion::CreateFromAxisAngle(axis, angle);
+
+	return q;
 }

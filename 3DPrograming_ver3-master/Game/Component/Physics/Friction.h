@@ -15,6 +15,8 @@ public:
 
 public:
 	// XVˆ—
-	void Update(float elapsedTime) override;
+	void LateUpdate(float elapsedTime) override;
+
+
 private:
 };

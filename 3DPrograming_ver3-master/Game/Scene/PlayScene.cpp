@@ -46,4 +46,6 @@ void PlayScene::Instance()
 	camera->Instance();
 	m_gameObjectList.Add(camera);
 
+	// マウスの非表示
+	while (ShowCursor(FALSE) >= 0);
 }

@@ -14,6 +14,8 @@ private:
 	// 追いかける相手
 	GameObject* m_target;
 
+	float m_x, m_y;
+
 public:
 	// コンストラクタ
 	PlayCamera(GameObject* player);

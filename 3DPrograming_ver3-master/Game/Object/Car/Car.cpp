@@ -3,6 +3,7 @@
 
 #include "../../Component/Render/RenderThreeDimension.h"
 #include "../../Component/Physics/Gravity.h"
+#include "../../Component/Physics/Friction.h"
 #include "../../Component/Controller/PlayerController.h"
 
 #include "../../Collision/CollisionSphere.h"
@@ -42,6 +43,9 @@ void Car::Instance()
 	// 重力のコンポーネントを作成
 	Component* gravity = new Gravity();
 	AddComponent(gravity);
+	// 摩擦のコンポーネントを作成
+	Component* friction = new Friction();
+	AddComponent(friction);
 	// 操作のコンポーネントを作成
 	Component* playerController = new PlayerController();
 	AddComponent(playerController);

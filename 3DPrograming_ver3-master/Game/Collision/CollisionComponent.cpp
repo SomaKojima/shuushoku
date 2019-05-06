@@ -40,7 +40,6 @@ bool CollisionComponent::Collision(CollisionComponent * col, DirectX::SimpleMath
 				{
 					OnTriangleCollision(*col->GetGameObject(), (*ite), hitPos);
 				}
-				break;
 			}
 		}
 		break;
