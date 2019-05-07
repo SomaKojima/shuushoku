@@ -65,6 +65,9 @@
     <Filter Include="Game\Camera\obj">
       <UniqueIdentifier>{6d13563b-2e02-4edb-8ac2-f13e1dd74ce0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\MouseCursor">
+      <UniqueIdentifier>{dd07b6f1-4269-425f-bf10-e91045dd7313}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -185,6 +188,19 @@
     <ClInclude Include="Game\Camera\Camera.h">
       <Filter>Game\Camera\obj</Filter>
     </ClInclude>
+    <ClInclude Include="DebugString.h" />
+    <ClInclude Include="Game\Command\Up.h">
+      <Filter>Game\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Command\Down.h">
+      <Filter>Game\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Command\ChangeMouseCursor.h">
+      <Filter>Game\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\MouseCursor\MouseCurosrManager.h">
+      <Filter>Game\MouseCursor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -287,6 +303,19 @@
     </ClCompile>
     <ClCompile Include="Game\Camera\Camera.cpp">
       <Filter>Game\Camera\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugString.cpp" />
+    <ClCompile Include="Game\Command\Up.cpp">
+      <Filter>Game\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Command\Down.cpp">
+      <Filter>Game\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Command\ChangeMouseCursor.cpp">
+      <Filter>Game\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\MouseCursor\MouseCurosrManager.cpp">
+      <Filter>Game\MouseCursor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

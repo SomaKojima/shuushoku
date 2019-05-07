@@ -145,7 +145,7 @@ bool CLiner8TreeManager::Register(GameObject& obj, float radius)
 	{
 		return false;
 	}
-	Vector3 b = Vector3::Transform(Vector3::Zero, obj.GetTransform().WorldMatrix());
+	Vector3 b =obj.GetTransform().WorldPos();
 	Vector3 c = b;
 	b += Vector3(radius, radius * 2, radius);
 	c += Vector3(-radius, 0.0f, -radius);

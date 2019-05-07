@@ -9,6 +9,8 @@
 #include "Game/Data/Model/ModelData.h"
 #include "Game/Camera/CameraManager.h"
 
+#include "DebugString.h"
+
 #if _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
@@ -81,6 +83,9 @@ void Game::Update(DX::StepTimer const& timer)
 	SubGame& subGame = SubGame::GetInstace();
 	subGame.Update(elapsedTime);
 
+	DebugString& debugString = DebugString::GetInstace();
+	debugString.Update(timer);
+
 	// デバッグカメラの更新
 	m_debugCamera->Update();
 
@@ -115,6 +120,15 @@ void Game::Render()
 
 	SubGame& subGame = SubGame::GetInstace();
 	subGame.Renderer();
+
+
+	m_sprites->Begin(SpriteSortMode_FrontToBack, m_states->NonPremultiplied());
+
+	DebugString& debugString = DebugString::GetInstace();
+	debugString.Render();
+
+	m_sprites->End();
+
 
 	// ここまで
 
@@ -218,6 +232,9 @@ void Game::CreateDeviceDependentResources()
 	SubGame& subGame = SubGame::GetInstace();
 	subGame.Initialize(this);
 
+	// 文字のデバッグを作成
+	DebugString& debugString = DebugString::GetInstace();
+	debugString.Initialize(m_sprites.get(), m_font.get());
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.

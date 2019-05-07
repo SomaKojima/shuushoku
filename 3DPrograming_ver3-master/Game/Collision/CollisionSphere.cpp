@@ -115,14 +115,11 @@ void CollisionSphere::HitBack(const Collision::Triangle & triangle, DirectX::Sim
 
 
 	// 座標の更新
-	//Vector3 pos = m_gameObject->GetTransform().WorldPos();
-	//Vector3 vec = pos - hitPos;
-	//vec.Normalize();
-	////vec = Vector3(triangle.plane.a, triangle.plane.b, triangle.plane.c);
-	//Vector3 _hit_pos = hitPos;
-	////Collision::HitCheck_Sphere_Plane(m_sphere, triangle.plane, &_hit_pos);
-	//pos = pos + vec * m_radius;
-	//m_gameObject->GetTransform().WorldPos(pos);
+	/*Vector3 pos = m_gameObject->GetTransform().WorldPos();
+	Vector3 vec = pos - hitPos;
+	vec.Normalize();
+	pos = pos + vec * m_radius;
+	m_gameObject->GetTransform().WorldPos(pos);*/
 
 	// 加速度を壁刷りを行った速度にする
 	Vector3 w_vec_accel = WallCulc(triangle, hitPos, m_gameObject->GetTransform().WorldAccel());
@@ -146,7 +143,15 @@ Vector3& CollisionSphere::WallCulc(const Collision::Triangle& triangle, Vector3 
 	Vector3 normal(triangle.plane.a, triangle.plane.b, triangle.plane.c);
 
 	float l = vec.Dot(normal);
-	Vector3 w_vec = vec - l * normal;
+	Vector3 w_vec;
+	if(l <= 0)
+	{
+		w_vec = vec - l * normal;
+	}
+	else
+	{
+		w_vec = vec;
+	}
 
 	// 元の向きに合わせる
 	return w_vec;

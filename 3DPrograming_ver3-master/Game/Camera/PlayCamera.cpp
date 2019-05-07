@@ -69,7 +69,7 @@ void PlayCamera::Update(float elapsedTime)
 	Quaternion q = Quaternion::CreateFromYawPitchRoll(-m_x, m_y, 0.0f);
 
 	Quaternion dir = Quaternion::Identity;
-	Vector3 upDir = Vector3::Transform(Vector3::Up, m_gameObject->GetTransform().WorldDir());
+	Vector3 upDir = Vector3::Transform(Vector3::Up, m_target->GetTransform().WorldDir());
 	float degree = mouseVec.x;
 	Quaternion cameraDir = Quaternion::Identity;
 	q = Quaternion::CreateFromYawPitchRoll(0.0f, m_y, 0.0f);
@@ -77,8 +77,12 @@ void PlayCamera::Update(float elapsedTime)
 	{
 		dir = Quaternion::CreateFromAxisAngle(upDir, -XMConvertToRadians(degree));
 	}
-	m_gameObject->GetTransform().WorldDir(m_gameObject->GetTransform().WorldDir() * dir);
-	cameraDir = q * m_gameObject->GetTransform().WorldDir();
+
+	// プレイヤーの向きを変える
+	m_target->GetTransform().WorldDir(m_target->GetTransform().WorldDir() * dir);
+
+	// カメラの向きを設定する
+	cameraDir = q * m_target->GetTransform().WorldDir();
 
 
 	// ----- マウスの座標をウィンドウの中央に固定する -----
@@ -86,9 +90,9 @@ void PlayCamera::Update(float elapsedTime)
 
 	// ----- カメラの座標を求める -----
 	Vector3 eyeVec = Vector3::Transform(Vector3(0.0f, 0.0f, -10.0f), cameraDir) +
-		Vector3::Transform(Vector3(0.0f, 2.0f * cos(m_y), 2.0f * sin(m_y)), m_gameObject->GetTransform().WorldDir());
-	Vector3 eyePos = m_gameObject->GetTransform().WorldPos() + eyeVec;
-	Vector3 target = m_gameObject->GetTransform().WorldPos() + Vector3::Transform(Vector3(0.0f, 0.0f, 10.0f), cameraDir);
+		Vector3::Transform(Vector3(0.0f, 2.0f * cos(m_y), 2.0f * sin(m_y)), m_target->GetTransform().WorldDir());
+	Vector3 eyePos = m_target->GetTransform().WorldPos() + eyeVec;
+	Vector3 target = m_target->GetTransform().WorldPos() + Vector3::Transform(Vector3(0.0f, 0.0f, 10.0f), cameraDir);
 
 	SetPositionTarget(eyePos, target);
 

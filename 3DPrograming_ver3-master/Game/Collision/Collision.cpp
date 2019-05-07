@@ -12,6 +12,7 @@
 #include "../Object/GameObject.h"
 #include "Collision.h"
 #include "CollisionComponent.h"
+#include "../../DebugString.h"
 
 /// <summary>
 /// 名前空間
@@ -193,12 +194,16 @@ bool Collision::HitCheck_Sphere_Triangle(const Sphere & sphere, const Triangle &
 
 	if (!HitCheck_Sphere_Plane(sphere, triangle.plane, hit_pos)) return false;
 
+	// デバッグ文字の作成
+	DebugString& debugString = DebugString::GetInstace();
+
 	// 三角形の辺の当たり判定
 	Vector3 vec;
 	vec = triangle.pos[1] - triangle.pos[0];
 	Segment segment = Segment{Vector3(triangle.pos[0]), Vector3(vec)};
 	if (HitCheck_Segment_Sphere(segment, sphere, hit_pos))
 	{
+		debugString.DebugText("Hit1");
 		return true;
 	}
 
@@ -206,6 +211,7 @@ bool Collision::HitCheck_Sphere_Triangle(const Sphere & sphere, const Triangle &
 	segment = Segment{ Vector3(triangle.pos[1]), Vector3(vec) };
 	if (HitCheck_Segment_Sphere(segment, sphere, hit_pos))
 	{
+		debugString.DebugText("Hit2");
 		return true;
 	}
 
@@ -213,6 +219,7 @@ bool Collision::HitCheck_Sphere_Triangle(const Sphere & sphere, const Triangle &
 	segment = Segment{ Vector3(triangle.pos[2]), Vector3(vec) };
 	if (HitCheck_Segment_Sphere(segment, sphere, hit_pos))
 	{
+		debugString.DebugText("Hit3");
 		return true;
 	}
 
@@ -221,6 +228,7 @@ bool Collision::HitCheck_Sphere_Triangle(const Sphere & sphere, const Triangle &
 	segment = Segment{ Vector3(sphere.center), Vector3(vec) };
 	if (HitCheck_Segment_Triangle(segment, triangle, hit_pos))
 	{
+		debugString.DebugText("Hit4");
 		return true;
 	}
 

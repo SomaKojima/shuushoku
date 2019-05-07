@@ -161,6 +161,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DebugCamera.h" />
+    <ClInclude Include="DebugString.h" />
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game\Camera\BaseCamera.h" />
@@ -179,8 +180,11 @@
     <ClInclude Include="Game\Collision\DebugCollision\DebugPlane.h" />
     <ClInclude Include="Game\Collision\DebugCollision\DebugSphere.h" />
     <ClInclude Include="Game\Command\Accel.h" />
+    <ClInclude Include="Game\Command\ChangeMouseCursor.h" />
     <ClInclude Include="Game\Command\Command.h" />
+    <ClInclude Include="Game\Command\Down.h" />
     <ClInclude Include="Game\Command\InputHandler.h" />
+    <ClInclude Include="Game\Command\Up.h" />
     <ClInclude Include="Game\Component\Component.h" />
     <ClInclude Include="Game\Component\Controller\PlayerController.h" />
     <ClInclude Include="Game\Component\Physics\Friction.h" />
@@ -188,6 +192,7 @@
     <ClInclude Include="Game\Component\Render\RenderThreeDimension.h" />
     <ClInclude Include="Game\Data\Data.h" />
     <ClInclude Include="Game\Data\Model\ModelData.h" />
+    <ClInclude Include="Game\MouseCursor\MouseCurosrManager.h" />
     <ClInclude Include="Game\Object\Car\Car.h" />
     <ClInclude Include="Game\Object\GameObject.h" />
     <ClInclude Include="Game\Object\GameObjectList.h" />
@@ -205,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DebugCamera.cpp" />
+    <ClCompile Include="DebugString.cpp" />
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game\Camera\BaseCamera.cpp" />
@@ -223,12 +229,16 @@
     <ClCompile Include="Game\Collision\DebugCollision\DebugPlane.cpp" />
     <ClCompile Include="Game\Collision\DebugCollision\DebugSphere.cpp" />
     <ClCompile Include="Game\Command\Accel.cpp" />
+    <ClCompile Include="Game\Command\ChangeMouseCursor.cpp" />
+    <ClCompile Include="Game\Command\Down.cpp" />
     <ClCompile Include="Game\Command\InputHandler.cpp" />
+    <ClCompile Include="Game\Command\Up.cpp" />
     <ClCompile Include="Game\Component\Controller\PlayerController.cpp" />
     <ClCompile Include="Game\Component\Physics\Friction.cpp" />
     <ClCompile Include="Game\Component\Physics\Gravity.cpp" />
     <ClCompile Include="Game\Component\Render\RenderThreeDimension.cpp" />
     <ClCompile Include="Game\Data\Model\ModelData.cpp" />
+    <ClCompile Include="Game\MouseCursor\MouseCurosrManager.cpp" />
     <ClCompile Include="Game\Object\Car\Car.cpp" />
     <ClCompile Include="Game\Object\GameObject.cpp" />
     <ClCompile Include="Game\Object\GameObjectList.cpp" />

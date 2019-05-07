@@ -1,0 +1,74 @@
+/// <summary>
+/// インクルード
+/// </summary>
+#include "../../pch.h"
+#include "MouseCurosrManager.h"
+
+/// <summary>
+/// コンストラクタ
+/// </summary>
+MouseCursorManager::MouseCursorManager()
+	:
+	m_isVisible(true),
+	m_isMove(true)
+{
+}
+
+/// <summary>
+/// デストラクタ
+/// </summary>
+MouseCursorManager::~MouseCursorManager()
+{
+}
+
+void MouseCursorManager::Update(float elapsedTime)
+{
+	if (!m_isMove)
+	{
+		// ----- ウィンドウの情報が取得できない場合 -----
+		if (!GetActiveWindow())
+		{
+			return;
+		}
+
+		// ----- ウィンドウの長方形(Rectangle)の情報を取得する
+		RECT wRect;
+		GetWindowRect(GetActiveWindow(), &wRect);
+		int width = (wRect.right - wRect.left) / 2;
+		int height = (wRect.bottom - wRect.top) / 2;
+
+		// ----- ウィンドウの中心座標を取得する -----
+		int centralX = wRect.left + width;
+		int centralY = wRect.top + height;
+		// ----- マウスの座標をウィンドウの中央に固定する -----
+		SetCursorPos(centralX, centralY);
+	}
+}
+
+/// <summary>
+/// 可視化を変える
+/// </summary>
+void MouseCursorManager::ChangeVisible()
+{
+	m_isVisible = !m_isVisible;
+
+	if (m_isVisible)
+	{
+		// マウスの表示
+		while (ShowCursor(TRUE) < 0);
+	}
+	else
+	{
+		// マウスの非表示
+		while (ShowCursor(FALSE) >= 0);
+	}
+}
+
+/// <summary>
+/// 動きを変える
+/// </summary>
+void MouseCursorManager::ChangeMoveMode()
+{
+	m_isMove = !m_isMove;
+
+}
