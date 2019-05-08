@@ -41,8 +41,8 @@ void Car::Instance()
 	Component* collisionSphere = new CollisionSphere(Vector3::Zero,1.5f);
 	AddComponent(collisionSphere);
 	// 重力のコンポーネントを作成
-	//Component* gravity = new Gravity();
-	//AddComponent(gravity);
+	Component* gravity = new Gravity();
+	AddComponent(gravity);
 	// 摩擦のコンポーネントを作成
 	Component* friction = new Friction();
 	AddComponent(friction);

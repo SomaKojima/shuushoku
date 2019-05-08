@@ -246,6 +246,9 @@ DirectX::SimpleMath::Quaternion Transform::FromToRotation(DirectX::SimpleMath::V
 	Vector3 axis = fromNormalize.Cross(toNormalize);
 	if (axis == Vector3::Zero)
 	{
+
+		// fromNormalize と toNormalize が同じか真反対の場合
+		// Vector3::Forward と fromNormalize で現在の回転を求める
 		float cosineOrigin = Vector3::Forward.Dot(fromNormalize);
 		if (cosineOrigin > 1.0f) cosineOrigin = 1.0f;
 		else if (cosineOrigin < -1.0f) cosineOrigin = -1.0f;
@@ -255,24 +258,32 @@ DirectX::SimpleMath::Quaternion Transform::FromToRotation(DirectX::SimpleMath::V
 
 		if (axisOrigin == Vector3::Zero)
 		{
+			// Vector3::Forward と fromNormalize が同じか真反対の場合
+			// Quaternion::Identity か 180度回転させる
 			if (cosineOrigin == -1.0f)
 			{
 				return Quaternion::CreateFromAxisAngle(Vector3::Up, XMConvertToRadians(180.0f));
 			}
 			else
 			{
-				Quaternion::Identity;
+				return Quaternion::Identity;
 			}
 		}
-		Quaternion qOrigine = Quaternion::CreateFromAxisAngle(axisOrigin, angleOrigin);
+
+
+		// 現在の回転からクォータニオンを求める
+		Quaternion qOrigin = Quaternion::CreateFromAxisAngle(axisOrigin, angleOrigin);
 
 		if (cosine == -1.0f)
 		{
-			axis = fromNormalize.Cross(Vector3::Transform(Vector3::Right, qOrigine));
+			// 180度回転させる
+			axis = fromNormalize.Cross(Vector3::Transform(Vector3::Right, qOrigin));
+			return Quaternion::CreateFromAxisAngle(axis, XMConvertToRadians(180.0f));
 		}
 		else
 		{
-			return qOrigine;
+			// 現在の回転のクォータニオンを返す
+			return qOrigin;
 		}
 	}
 

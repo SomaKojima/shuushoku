@@ -1,9 +1,8 @@
 #include "../../pch.h"
 #include "ChangeMouseCursor.h"
+#include "../MouseCursor/MouseCurosrManager.h"
 
 ChangeMouseCursor::ChangeMouseCursor()
-	:
-	isEnable(false)
 {
 }
 
@@ -13,16 +12,8 @@ ChangeMouseCursor::~ChangeMouseCursor()
 
 void ChangeMouseCursor::Excute(GameObject & obj)
 {
-	isEnable = !isEnable;
+	MouseCursorManager& mouseCursorManager = MouseCursorManager::GetInstace();
 
-	if (isEnable)
-	{
-		// マウスの表示
-		while (ShowCursor(TRUE) < 0);
-	}
-	else
-	{
-		// マウスの非表示
-		while (ShowCursor(FALSE) >= 0);
-	}
+	mouseCursorManager.ChangeVisible();
+	mouseCursorManager.ChangeMoveMode();
 }

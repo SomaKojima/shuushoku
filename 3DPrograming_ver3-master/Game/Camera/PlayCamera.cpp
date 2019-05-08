@@ -3,6 +3,7 @@
 #include "Mouse.h"
 #include "../Object/GameObject.h"
 #include "CameraManager.h"
+#include "../MouseCursor/MouseCurosrManager.h"
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -29,7 +30,7 @@ void PlayCamera::Update(float elapsedTime)
 
 
 	// ----- ウィンドウの情報が取得できない場合 -----
-	if (!GetActiveWindow())
+	if (!GetActiveWindow() || MouseCursorManager::GetInstace().GetIsMove())
 	{
 		return;
 	}
@@ -79,14 +80,11 @@ void PlayCamera::Update(float elapsedTime)
 	}
 
 	// プレイヤーの向きを変える
-	m_target->GetTransform().WorldDir(m_target->GetTransform().WorldDir() * dir);
+	dir = m_target->GetTransform().WorldDir() * dir;
+	m_target->GetTransform().WorldDir(dir);
 
 	// カメラの向きを設定する
 	cameraDir = q * m_target->GetTransform().WorldDir();
-
-
-	// ----- マウスの座標をウィンドウの中央に固定する -----
-	SetCursorPos(centralX, centralY);
 
 	// ----- カメラの座標を求める -----
 	Vector3 eyeVec = Vector3::Transform(Vector3(0.0f, 0.0f, -10.0f), cameraDir) +

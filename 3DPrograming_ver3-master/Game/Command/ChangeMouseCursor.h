@@ -16,6 +16,4 @@ public:
 	// é¿çsä÷êî
 	void Excute(GameObject& obj) override;
 
-private:
-	bool isEnable;
 };

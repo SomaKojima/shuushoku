@@ -5,6 +5,8 @@
 #include "../Camera/Camera.h"
 #include "../Object/Room/Room.h"
 
+#include "../MouseCursor/MouseCurosrManager.h"
+
 using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -47,5 +49,8 @@ void PlayScene::Instance()
 	m_gameObjectList.Add(camera);
 
 	// マウスの非表示
-	while (ShowCursor(FALSE) >= 0);
+	MouseCursorManager& mouseCursorManager = MouseCursorManager::GetInstace();
+	mouseCursorManager.ChangeVisible(false);
+	// マウスを固定
+	mouseCursorManager.ChangeMoveMode(false);
 }

@@ -89,24 +89,44 @@ void CollisionMesh::Finalize()
 	m_obj.reset();
 }
 
-bool CollisionMesh::SphereCollision(const Collision::Sphere& sphere, DirectX::SimpleMath::Vector3& hitPos)
+bool CollisionMesh::SphereCollision(GameObject& obj, const Collision::Sphere& sphere, DirectX::SimpleMath::Vector3& hitPos)
 {
 	for (auto ite = m_triangles.begin(); ite != m_triangles.end(); ite++)
 	{
 		if (Collision::HitCheck((*ite), sphere, &hitPos))
 		{
+			// Ž©g‚Ìˆ—
+			for (auto ite2 = m_gameObject->GetComponentList().begin(); ite2 != m_gameObject->GetComponentList().end(); ite2++)
+			{
+				(*ite2)->OnSphereCollision(obj, sphere, hitPos);
+			}
+			// ‘ŠŽè‚Ìˆ—
+			for (auto ite2 = obj.GetComponentList().begin(); ite2 != obj.GetComponentList().end(); ite2++)
+			{
+				(*ite2)->OnTriangleCollision(*m_gameObject, (*ite), hitPos);
+			}
 			return true;
 		}
 	}
 	return false;
 }
 
-bool CollisionMesh::TriangleCollision(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos)
+bool CollisionMesh::TriangleCollision(GameObject& obj, const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos)
 {
 	for (auto ite = m_triangles.begin(); ite != m_triangles.end(); ite++)
 	{
 		if (Collision::HitCheck((*ite), triangle, &hitPos))
 		{
+			// Ž©g‚Ìˆ—
+			for (auto ite2 = m_gameObject->GetComponentList().begin(); ite2 != m_gameObject->GetComponentList().end(); ite2++)
+			{
+				(*ite2)->OnTriangleCollision(obj, triangle, hitPos);
+			}
+			// ‘ŠŽè‚Ìˆ—
+			for (auto ite2 = obj.GetComponentList().begin(); ite2 != obj.GetComponentList().end(); ite2++)
+			{
+				(*ite2)->OnTriangleCollision(*m_gameObject, (*ite), hitPos);
+			}
 			return true;
 		}
 	}

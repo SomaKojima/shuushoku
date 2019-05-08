@@ -30,9 +30,9 @@ public:
 
 	// “–‚½‚è”»’è
 	bool Collision(CollisionComponent* col, DirectX::SimpleMath::Vector3& hitPos);
-	virtual bool SphereCollision(const Collision::Sphere& sphere, DirectX::SimpleMath::Vector3& hitPos) = 0;
-	virtual bool TriangleCollision(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos) = 0;
 
+	virtual bool SphereCollision(GameObject& obj, const Collision::Sphere& sphere, DirectX::SimpleMath::Vector3& hitPos) = 0;
+	virtual bool TriangleCollision(GameObject& obj, const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos) = 0;
 
 	void SetHit(bool flag) { isHit = flag; }
 	bool IsHit() { return isHit; }

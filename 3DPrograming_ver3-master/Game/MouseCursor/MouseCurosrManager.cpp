@@ -21,6 +21,10 @@ MouseCursorManager::~MouseCursorManager()
 {
 }
 
+/// <summary>
+/// 更新
+/// </summary>
+/// <param name="elapsedTime"></param>
 void MouseCursorManager::Update(float elapsedTime)
 {
 	if (!m_isMove)
@@ -48,10 +52,10 @@ void MouseCursorManager::Update(float elapsedTime)
 /// <summary>
 /// 可視化を変える
 /// </summary>
-void MouseCursorManager::ChangeVisible()
+/// <param name="isVisible"></param>
+void MouseCursorManager::ChangeVisible(bool isVisible)
 {
-	m_isVisible = !m_isVisible;
-
+	m_isVisible = isVisible;
 	if (m_isVisible)
 	{
 		// マウスの表示
@@ -65,10 +69,27 @@ void MouseCursorManager::ChangeVisible()
 }
 
 /// <summary>
+/// 可視化を変える
+/// </summary>
+void MouseCursorManager::ChangeVisible()
+{
+	m_isVisible = !m_isVisible;
+	ChangeVisible(m_isVisible);
+}
+
+/// <summary>
+/// 動きを変える
+/// </summary>
+/// <param name="isMove"></param>
+void MouseCursorManager::ChangeMoveMode(bool isMove)
+{
+	m_isMove = isMove;
+}
+
+/// <summary>
 /// 動きを変える
 /// </summary>
 void MouseCursorManager::ChangeMoveMode()
 {
 	m_isMove = !m_isMove;
-
 }

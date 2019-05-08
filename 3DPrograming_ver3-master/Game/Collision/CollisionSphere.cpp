@@ -87,19 +87,39 @@ void CollisionSphere::OnTriangleCollision(GameObject & obj, const Collision::Tri
 	HitBack(triangle, hitPos);
 }
 
-bool CollisionSphere::SphereCollision(const Collision::Sphere & sphere, DirectX::SimpleMath::Vector3& hitPos)
+bool CollisionSphere::SphereCollision(GameObject& obj, const Collision::Sphere & sphere, DirectX::SimpleMath::Vector3& hitPos)
 {
 	if (Collision::HitCheck(m_sphere, sphere, &hitPos))
 	{
+		// 自身の処理
+		for (auto ite = m_gameObject->GetComponentList().begin(); ite != m_gameObject->GetComponentList().end(); ite++)
+		{
+			(*ite)->OnSphereCollision(obj, sphere, hitPos);
+		}
+		// 相手の処理
+		for (auto ite = obj.GetComponentList().begin(); ite != obj.GetComponentList().end(); ite++)
+		{
+			(*ite)->OnSphereCollision(*m_gameObject, m_sphere, hitPos);
+		}
 		return true;
 	}
 	return false;
 }
 
-bool CollisionSphere::TriangleCollision(const Collision::Triangle & triangle, DirectX::SimpleMath::Vector3& hitPos)
+bool CollisionSphere::TriangleCollision(GameObject& obj, const Collision::Triangle & triangle, DirectX::SimpleMath::Vector3& hitPos)
 {
 	if (Collision::HitCheck(m_sphere, triangle, &hitPos))
 	{
+		// 自身の処理
+		for (auto ite = m_gameObject->GetComponentList().begin(); ite != m_gameObject->GetComponentList().end(); ite++)
+		{
+			(*ite)->OnTriangleCollision(obj, triangle, hitPos);
+		}
+		// 相手の処理
+		for (auto ite = obj.GetComponentList().begin(); ite != obj.GetComponentList().end(); ite++)
+		{
+			(*ite)->OnSphereCollision(*m_gameObject, m_sphere, hitPos);
+		}
 		return true;
 	}
 	return false;
@@ -115,11 +135,22 @@ void CollisionSphere::HitBack(const Collision::Triangle & triangle, DirectX::Sim
 
 
 	// 座標の更新
-	/*Vector3 pos = m_gameObject->GetTransform().WorldPos();
-	Vector3 vec = pos - hitPos;
-	vec.Normalize();
-	pos = pos + vec * m_radius;
-	m_gameObject->GetTransform().WorldPos(pos);*/
+	 Vector3 pos = m_gameObject->GetTransform().WorldPos();
+
+	 Vector3 normal(triangle.plane.a, triangle.plane.b, triangle.plane.c);
+	 pos = hitPos + normal * m_radius;
+	/*if (Collision::Triangle_CheckInner(triangle, hitPos))
+	{
+		Vector3 normal(triangle.plane.a, triangle.plane.b, triangle.plane.c);
+		pos = hitPos + normal * m_radius;
+	}
+	else
+	{
+		Vector3 vec = pos - hitPos;
+		vec.Normalize();
+		pos = hitPos + vec * m_radius;
+	}*/
+	m_gameObject->GetTransform().WorldPos(pos);
 
 	// 加速度を壁刷りを行った速度にする
 	Vector3 w_vec_accel = WallCulc(triangle, hitPos, m_gameObject->GetTransform().WorldAccel());

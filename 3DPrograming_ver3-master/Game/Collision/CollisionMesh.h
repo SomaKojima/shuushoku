@@ -24,9 +24,9 @@ public:
 	void Finalize() override;
 
 	// ‹…‚Æ‚Ì“–‚½‚è”»’è
-	bool SphereCollision(const Collision::Sphere& sphere, DirectX::SimpleMath::Vector3& hitPos) override;
+	bool SphereCollision(GameObject& obj, const Collision::Sphere& sphere, DirectX::SimpleMath::Vector3& hitPos) override;
 	// ƒƒbƒVƒ…‚Æ‚Ì“–‚½‚è”»’è
-	bool TriangleCollision(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos) override;
+	bool TriangleCollision(GameObject& obj, const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos) override;
 
 	// ƒ|ƒŠƒSƒ“‚Ìî•ñ‚ğæ“¾
 	const std::list<Collision::Triangle>* GetTriangleList() override { return &m_triangles; }

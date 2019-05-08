@@ -5,6 +5,7 @@
 #include "Utility/InputManager.h"
 #include "Scene/SceneManager.h"
 #include "Collision/CCell.h"
+#include "MouseCursor/MouseCurosrManager.h"
 
 SubGame::SubGame()
 	:
@@ -30,10 +31,13 @@ void SubGame::Initialize(Game* game)
 	SceneManager& sceneManager = SceneManager::GetInstace();
 	sceneManager.ChangeSceneID(SceneManager::SceneID::Play);
 	sceneManager.Initialize();
+
 }
 
 void SubGame::Update(float elapsedTime)
 {
+
+
 	// 入力の更新
 	InputManager& inputManager = InputManager::GetInstace();
 	inputManager.Update(elapsedTime);
@@ -45,6 +49,10 @@ void SubGame::Update(float elapsedTime)
 	// 当たり判定の空間を作成
 	CLiner8TreeManager& cLiner8TreeManager = CLiner8TreeManager::GetInstace();
 	cLiner8TreeManager.HitCheck();
+
+	// マウスカーソルの管理を初期化
+	MouseCursorManager& mouseCursorManager = MouseCursorManager::GetInstace();
+	mouseCursorManager.Update(elapsedTime);
 }
 
 void SubGame::Renderer()
