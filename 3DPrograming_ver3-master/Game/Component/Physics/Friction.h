@@ -14,9 +14,7 @@ public:
 	~Friction();
 
 public:
-	// 更新処理
+	// 遅延更新処理
 	void LateUpdate(float elapsedTime) override;
 
-
-private:
 };

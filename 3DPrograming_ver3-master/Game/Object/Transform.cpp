@@ -42,6 +42,7 @@ void Transform::Update(float elapsedTime)
 	// マトリクスを更新
 	m_worldMatrix = Matrix::CreateFromQuaternion(m_worldDir) * Matrix::CreateTranslation(m_worldPos);
 
+
 	// 子供のマトリクスを更新
 	UpdateChildMatrix(elapsedTime);
 }

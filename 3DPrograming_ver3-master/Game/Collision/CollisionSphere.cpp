@@ -130,26 +130,15 @@ bool CollisionSphere::TriangleCollision(GameObject& obj, const Collision::Triang
 void CollisionSphere::HitBack(const Collision::Triangle & triangle, DirectX::SimpleMath::Vector3 & hitPos)
 {
 	// 速度で壁刷りを行う
-	 Vector3 w_vec_vel = WallCulc(triangle, hitPos, m_gameObject->GetTransform().WorldVel());
-	 m_gameObject->GetTransform().WorldVel(w_vec_vel);
+	Vector3 w_vec_vel = WallCulc(triangle, hitPos, m_gameObject->GetTransform().WorldVel());
+	m_gameObject->GetTransform().WorldVel(w_vec_vel);
 
 
 	// 座標の更新
-	 Vector3 pos = m_gameObject->GetTransform().WorldPos();
+	Vector3 pos = m_gameObject->GetTransform().WorldPos();
 
-	 Vector3 normal(triangle.plane.a, triangle.plane.b, triangle.plane.c);
-	 pos = hitPos + normal * m_radius;
-	/*if (Collision::Triangle_CheckInner(triangle, hitPos))
-	{
-		Vector3 normal(triangle.plane.a, triangle.plane.b, triangle.plane.c);
-		pos = hitPos + normal * m_radius;
-	}
-	else
-	{
-		Vector3 vec = pos - hitPos;
-		vec.Normalize();
-		pos = hitPos + vec * m_radius;
-	}*/
+	Vector3 normal(triangle.plane.a, triangle.plane.b, triangle.plane.c);
+	pos = hitPos + normal * m_radius;
 	m_gameObject->GetTransform().WorldPos(pos);
 
 	// 加速度を壁刷りを行った速度にする

@@ -29,23 +29,7 @@ void MouseCursorManager::Update(float elapsedTime)
 {
 	if (!m_isMove)
 	{
-		// ----- ウィンドウの情報が取得できない場合 -----
-		if (!GetActiveWindow())
-		{
-			return;
-		}
-
-		// ----- ウィンドウの長方形(Rectangle)の情報を取得する
-		RECT wRect;
-		GetWindowRect(GetActiveWindow(), &wRect);
-		int width = (wRect.right - wRect.left) / 2;
-		int height = (wRect.bottom - wRect.top) / 2;
-
-		// ----- ウィンドウの中心座標を取得する -----
-		int centralX = wRect.left + width;
-		int centralY = wRect.top + height;
-		// ----- マウスの座標をウィンドウの中央に固定する -----
-		SetCursorPos(centralX, centralY);
+		MoveCenter();
 	}
 }
 
@@ -92,4 +76,28 @@ void MouseCursorManager::ChangeMoveMode(bool isMove)
 void MouseCursorManager::ChangeMoveMode()
 {
 	m_isMove = !m_isMove;
+}
+
+/// <summary>
+/// マウスカーソルを画面中央に移動させる
+/// </summary>
+void MouseCursorManager::MoveCenter()
+{
+	// ----- ウィンドウの情報が取得できない場合 -----
+	if (!GetActiveWindow())
+	{
+		return;
+	}
+
+	// ----- ウィンドウの長方形(Rectangle)の情報を取得する
+	RECT wRect;
+	GetWindowRect(GetActiveWindow(), &wRect);
+	int width = (wRect.right - wRect.left) / 2;
+	int height = (wRect.bottom - wRect.top) / 2;
+
+	// ----- ウィンドウの中心座標を取得する -----
+	int centralX = wRect.left + width;
+	int centralY = wRect.top + height;
+	// ----- マウスの座標をウィンドウの中央に固定する -----
+	SetCursorPos(centralX, centralY);
 }

@@ -95,9 +95,6 @@ void PlayCamera::Update(float elapsedTime)
 	SetPositionTarget(eyePos, target);
 
 
-
-
-
 	// カメラ管理のビューを更新する
 	CameraManager& cameraManager = CameraManager::GetInstace();
 	cameraManager.SetView(Matrix::CreateLookAt(GetEyePosition(), GetTargetPosition(), GetUp()));

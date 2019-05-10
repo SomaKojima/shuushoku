@@ -13,6 +13,7 @@ public:
 	void ChangeVisible();
 	void ChangeMoveMode(bool isMove);
 	void ChangeMoveMode();
+	void MoveCenter();
 
 	bool GetIsVisible() { return m_isVisible; }
 	bool GetIsMove() { return m_isMove; }

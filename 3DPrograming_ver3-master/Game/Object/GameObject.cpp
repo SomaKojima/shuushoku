@@ -15,7 +15,8 @@ GameObject::GameObject()
 	: 
 	BidirectionalList<GameObject>(this),
 	m_oft(new OBJECT_FOR_TREE(this)),
-	m_tag(Tag::Tag_Default)
+	m_tag(Tag::Tag_Default),
+	m_name("")
 {
 }
 

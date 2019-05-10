@@ -62,6 +62,10 @@ public:
 	void SetTag(Tag tag) { m_tag = tag; }
 	// タグの取得
 	Tag& GetTag() { return m_tag; }
+	// 名前の設定
+	void SetName(char* name) { m_name = name; }
+	// 名前の取得
+	char* GetName() { return m_name; }
 
 private:
 	// 変形
@@ -72,6 +76,8 @@ private:
 	OBJECT_FOR_TREE* m_oft;
 	// タグ
 	Tag m_tag;
+	// 名前
+	char* m_name;
 };
 
 /// <summary>

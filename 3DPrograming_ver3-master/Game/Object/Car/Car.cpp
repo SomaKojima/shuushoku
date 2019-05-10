@@ -5,6 +5,7 @@
 #include "../../Component/Physics/Gravity.h"
 #include "../../Component/Physics/Friction.h"
 #include "../../Component/Controller/PlayerController.h"
+#include "../../Component/Object/PositionControl.h"
 
 #include "../../Collision/CollisionSphere.h"
 
@@ -49,4 +50,7 @@ void Car::Instance()
 	// 操作のコンポーネントを作成
 	Component* playerController = new PlayerController();
 	AddComponent(playerController);
+	// 姿勢制御のコンポーネントを作成
+	PositionControl* positionControl = new PositionControl();
+	AddComponent(positionControl);
 }

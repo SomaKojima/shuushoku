@@ -53,4 +53,6 @@ void PlayScene::Instance()
 	mouseCursorManager.ChangeVisible(false);
 	// マウスを固定
 	mouseCursorManager.ChangeMoveMode(false);
+	// マウスを画面中央に移動させる
+	mouseCursorManager.MoveCenter();
 }

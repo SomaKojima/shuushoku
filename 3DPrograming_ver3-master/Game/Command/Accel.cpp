@@ -24,9 +24,9 @@ Accel::~Accel()
 /// <param name="obj"></param>
 void Accel::Excute(GameObject & obj)
 {
-	float speed = 0.2f;
+	float speed = 0.005f;
 	Vector3 vec = Vector3::Backward * speed;
 	Quaternion q = obj.GetTransform().WorldDir();
-	Vector3 accel = Vector3::Transform(vec, q);
+	Vector3 accel = obj.GetTransform().WorldAccel() + Vector3::Transform(vec, q);
 	obj.GetTransform().WorldAccel(accel);
 }

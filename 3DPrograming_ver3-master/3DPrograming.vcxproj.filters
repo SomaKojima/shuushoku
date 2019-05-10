@@ -68,6 +68,9 @@
     <Filter Include="Game\MouseCursor">
       <UniqueIdentifier>{dd07b6f1-4269-425f-bf10-e91045dd7313}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\Object">
+      <UniqueIdentifier>{74543bed-31b9-4631-91fd-3edf1da5b717}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -201,6 +204,9 @@
     <ClInclude Include="Game\MouseCursor\MouseCurosrManager.h">
       <Filter>Game\MouseCursor</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Component\Object\PositionControl.h">
+      <Filter>Game\Component\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -316,6 +322,9 @@
     </ClCompile>
     <ClCompile Include="Game\MouseCursor\MouseCurosrManager.cpp">
       <Filter>Game\MouseCursor</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Object\PositionControl.cpp">
+      <Filter>Game\Component\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
