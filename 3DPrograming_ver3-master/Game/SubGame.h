@@ -22,7 +22,11 @@ public:
 
 	void SetGame(Game* game) { m_game = game; }
 	Game* GetGame() { return m_game; }
+	
+	void SetWindow(HWND window) { m_window = window; }
+	HWND GetWindow() { return m_window; }
 
 private:
 	Game* m_game;
+	HWND m_window;
 };

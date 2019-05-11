@@ -3,14 +3,15 @@
 #include "Command.h"
 
 /// <summary>
-/// 加速コマンドのクラス
+/// 右移動コマンドのクラス
 /// </summary>
-class Accel : public Command
+class MoveRight : public Command
 {
 public:
 	// コンストラクタ
-	Accel();
-	~Accel();
+	MoveRight();
+	// デストラクタ
+	~MoveRight();
 
 public:
 	// 実行関数

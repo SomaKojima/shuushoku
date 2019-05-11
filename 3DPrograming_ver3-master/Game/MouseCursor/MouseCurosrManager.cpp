@@ -3,6 +3,7 @@
 /// </summary>
 #include "../../pch.h"
 #include "MouseCurosrManager.h"
+#include "../SubGame.h"
 
 /// <summary>
 /// コンストラクタ
@@ -84,10 +85,11 @@ void MouseCursorManager::ChangeMoveMode()
 void MouseCursorManager::MoveCenter()
 {
 	// ----- ウィンドウの情報が取得できない場合 -----
-	if (!GetActiveWindow())
-	{
-		return;
-	}
+	if (!GetActiveWindow()) return;
+
+	// 自身ウィンドウがアクティブ化どうかを判定
+	SubGame& subGame = SubGame::GetInstace();
+	if (GetActiveWindow() != subGame.GetWindow()) return;
 
 	// ----- ウィンドウの長方形(Rectangle)の情報を取得する
 	RECT wRect;

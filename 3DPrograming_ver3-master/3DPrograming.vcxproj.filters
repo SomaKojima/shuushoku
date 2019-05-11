@@ -71,6 +71,9 @@
     <Filter Include="Game\Component\Object">
       <UniqueIdentifier>{74543bed-31b9-4631-91fd-3edf1da5b717}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Command\Move">
+      <UniqueIdentifier>{cfabb4b6-9377-4f36-af5c-a35144caa800}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -173,9 +176,6 @@
     <ClInclude Include="Game\Component\Physics\Gravity.h">
       <Filter>Game\Component\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Command\Accel.h">
-      <Filter>Game\Command</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Command\Command.h">
       <Filter>Game\Command\core</Filter>
     </ClInclude>
@@ -206,6 +206,18 @@
     </ClInclude>
     <ClInclude Include="Game\Component\Object\PositionControl.h">
       <Filter>Game\Component\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Command\MoveBackward.h">
+      <Filter>Game\Command\Move</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Command\MoveForward.h">
+      <Filter>Game\Command\Move</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Command\MoveLeft.h">
+      <Filter>Game\Command\Move</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Command\MoveRight.h">
+      <Filter>Game\Command\Move</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -295,9 +307,6 @@
     <ClCompile Include="Game\Component\Physics\Gravity.cpp">
       <Filter>Game\Component\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Command\Accel.cpp">
-      <Filter>Game\Command</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Command\InputHandler.cpp">
       <Filter>Game\Command\core</Filter>
     </ClCompile>
@@ -325,6 +334,18 @@
     </ClCompile>
     <ClCompile Include="Game\Component\Object\PositionControl.cpp">
       <Filter>Game\Component\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Command\MoveBackward.cpp">
+      <Filter>Game\Command\Move</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Command\MoveForward.cpp">
+      <Filter>Game\Command\Move</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Command\MoveLeft.cpp">
+      <Filter>Game\Command\Move</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Command\MoveRight.cpp">
+      <Filter>Game\Command\Move</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

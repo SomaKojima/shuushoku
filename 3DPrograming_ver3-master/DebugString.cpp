@@ -69,8 +69,7 @@ void DebugString::Render()
 	{
 
 		//string‚©‚çwchar_tŒ^‚Ö•ÏŠ·
-		std::wstring_convert
-			<std::codecvt_utf8<wchar_t>, wchar_t> cv;
+		std::wstring_convert <std::codecvt_utf8<wchar_t>, wchar_t> cv;
 		std::wstring wsnum = cv.from_bytes((*ite));
 
 		m_font->DrawString(m_sprites, wsnum.c_str(), pos, Colors::Red, 0.0f, Vector2::Zero, 1.0f, SpriteEffects_None, 1.0f);

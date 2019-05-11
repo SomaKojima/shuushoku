@@ -58,6 +58,11 @@ void Game::Initialize(HWND window, int width, int height)
     m_timer.SetTargetElapsedSeconds(1.0 / 60);
     */
 
+
+	// サブゲームの作成
+	SubGame& subGame = SubGame::GetInstace();
+	subGame.SetWindow(window);
+
 }
 
 #pragma region Frame Update

@@ -13,8 +13,14 @@ public:
 	~InputHandler();
 
 public:
-	// 上キーのコマンド
-	Command* m_keyUpArrow;
+	// Wキーのコマンド
+	Command* m_keyW;
+	// Aキーのコマンド
+	Command* m_keyA;
+	// Sキーのコマンド
+	Command* m_keyS;
+	// Dキーのコマンド
+	Command* m_keyD;
 
 	// Zキーのコマンド
 	Command* m_keyZ;
