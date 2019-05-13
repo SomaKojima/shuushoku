@@ -182,8 +182,8 @@ bool Collision::HitCheck_Sphere_Plane(const Sphere & sphere, const Plane & plane
 	// Œð“_‚ðŒvŽZ
 	if (hit_pos)
 	{
-		length = sphere.radius - length;
-		*hit_pos = Vector3(plane.a, plane.b, plane.c) * length;
+		//length = sphere.radius - length;
+		*hit_pos = sphere.center - Vector3(plane.a, plane.b, plane.c) * length;
 	}
 	return true;
 }

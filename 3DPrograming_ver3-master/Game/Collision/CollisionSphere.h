@@ -47,7 +47,7 @@ public:
 	void HitBack(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos);
 
 	// 壁刷りの計算
-	DirectX::SimpleMath::Vector3& WallCulc(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos, DirectX::SimpleMath::Vector3 vel);
+	DirectX::SimpleMath::Vector3 WallCulc(const Collision::Triangle& triangle, DirectX::SimpleMath::Vector3& hitPos, DirectX::SimpleMath::Vector3 vel);
 
 	// プロパティ
 	DirectX::SimpleMath::Vector3 GetCenter() { return m_center; }
