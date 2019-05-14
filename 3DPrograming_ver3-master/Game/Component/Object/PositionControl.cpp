@@ -44,9 +44,9 @@ void PositionControl::Update(float elapsedTime)
 		}
 		float rot = acos(cosine);
 		Quaternion  Q1 = Quaternion::CreateFromAxisAngle(axis, rot);
-		Quaternion q = Quaternion::Slerp(m_gameObject->GetTransform().WorldDir(), m_gameObject->GetTransform().WorldDir() * Q1, 0.1f);
+		Quaternion q = Quaternion::Slerp(m_gameObject->GetTransform().WorldDir(), m_gameObject->GetTransform().WorldDir() * Q1, 1.0f);
 
-		m_gameObject->GetTransform().WorldDir(q);//m_me->GetTrans().GetDir() * Q1);
+		m_gameObject->GetTransform().WorldDir(q);
 	}
 
 	m_isWallHit = false;
